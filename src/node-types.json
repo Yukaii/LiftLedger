@@ -1,11 +1,417 @@
 [
   {
-    "type": "source_file",
+    "type": "comment",
     "named": true,
     "fields": {}
   },
   {
-    "type": "hello",
+    "type": "exercise_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_name",
+          "named": true
+        },
+        {
+          "type": "attribute_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exercise_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exercise_attribute",
+          "named": true
+        },
+        {
+          "type": "exercise_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exercises_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "exercise_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "file_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "log_entry",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "date",
+          "named": true
+        },
+        {
+          "type": "logged_exercise",
+          "named": true
+        },
+        {
+          "type": "workout_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "logged_exercise",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exercise_name",
+          "named": true
+        },
+        {
+          "type": "note",
+          "named": true
+        },
+        {
+          "type": "reps",
+          "named": true
+        },
+        {
+          "type": "rpe",
+          "named": true
+        },
+        {
+          "type": "weight",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "measurement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "measurement_name",
+          "named": true
+        },
+        {
+          "type": "measurement_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "measurement_entry",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "date",
+          "named": true
+        },
+        {
+          "type": "measurement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "measurement_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "pr_entry",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "date",
+          "named": true
+        },
+        {
+          "type": "pr_record",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pr_record",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exercise_name",
+          "named": true
+        },
+        {
+          "type": "pr_type",
+          "named": true
+        },
+        {
+          "type": "weight",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "exercises_block",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "log_entry",
+          "named": true
+        },
+        {
+          "type": "measurement_entry",
+          "named": true
+        },
+        {
+          "type": "pr_entry",
+          "named": true
+        },
+        {
+          "type": "template_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "template_exercise",
+          "named": true
+        },
+        {
+          "type": "template_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_exercise",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "exercise_name",
+          "named": true
+        },
+        {
+          "type": "note",
+          "named": true
+        },
+        {
+          "type": "reps",
+          "named": true
+        },
+        {
+          "type": "rpe",
+          "named": true
+        },
+        {
+          "type": "weight",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "workout_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "\n",
     "named": false
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "@end-exercises",
+    "named": false
+  },
+  {
+    "type": "@end-template",
+    "named": false
+  },
+  {
+    "type": "@exercises",
+    "named": false
+  },
+  {
+    "type": "@include",
+    "named": false
+  },
+  {
+    "type": "@template",
+    "named": false
+  },
+  {
+    "type": "Measurements",
+    "named": false
+  },
+  {
+    "type": "PR",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "attribute_name",
+    "named": true
+  },
+  {
+    "type": "attribute_value",
+    "named": true
+  },
+  {
+    "type": "date",
+    "named": true
+  },
+  {
+    "type": "exercise_name",
+    "named": true
+  },
+  {
+    "type": "file_path",
+    "named": true
+  },
+  {
+    "type": "measurement_name",
+    "named": true
+  },
+  {
+    "type": "note",
+    "named": true
+  },
+  {
+    "type": "pr_type",
+    "named": true
+  },
+  {
+    "type": "reps",
+    "named": true
+  },
+  {
+    "type": "rpe",
+    "named": true
+  },
+  {
+    "type": "weight",
+    "named": true
   }
 ]

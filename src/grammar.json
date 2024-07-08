@@ -2,8 +2,419 @@
   "name": "liftledger",
   "rules": {
     "source_file": {
-      "type": "STRING",
-      "value": "hello"
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_line"
+      }
+    },
+    "_line": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exercises_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "template_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "log_entry"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "measurement_entry"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pr_entry"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*"
+        }
+      ]
+    },
+    "include": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@include"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "file_path"
+        }
+      ]
+    },
+    "file_path": {
+      "type": "PATTERN",
+      "value": "[^\\s]+"
+    },
+    "exercises_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@exercises"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "exercise_definition"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "@end-exercises"
+        }
+      ]
+    },
+    "exercise_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exercise_name"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "exercise_attribute"
+          }
+        }
+      ]
+    },
+    "exercise_name": {
+      "type": "PATTERN",
+      "value": "[^\\]]+"
+    },
+    "exercise_attribute": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_name"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "attribute_value"
+        }
+      ]
+    },
+    "attribute_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z_]+"
+    },
+    "attribute_value": {
+      "type": "PATTERN",
+      "value": ".+"
+    },
+    "template_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@template"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "template_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "template_exercise"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "@end-template"
+        }
+      ]
+    },
+    "template_name": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
+    },
+    "template_exercise": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "exercise_name"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "weight"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reps"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "rpe"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "note"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "log_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "date"
+        },
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "workout_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "logged_exercise"
+          }
+        }
+      ]
+    },
+    "logged_exercise": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "exercise_name"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "weight"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reps"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "rpe"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "note"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "measurement_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "date"
+        },
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "STRING",
+          "value": "Measurements"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "measurement"
+          }
+        }
+      ]
+    },
+    "measurement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "measurement_name"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "measurement_value"
+        }
+      ]
+    },
+    "pr_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "date"
+        },
+        {
+          "type": "STRING",
+          "value": "^"
+        },
+        {
+          "type": "STRING",
+          "value": "PR"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pr_record"
+          }
+        }
+      ]
+    },
+    "pr_record": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "exercise_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pr_type"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "weight"
+        }
+      ]
+    },
+    "date": {
+      "type": "PATTERN",
+      "value": "\\d{4}-\\d{2}-\\d{2}"
+    },
+    "workout_name": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
+    },
+    "weight": {
+      "type": "PATTERN",
+      "value": "\\d+(\\.\\d+)?kg|BW"
+    },
+    "reps": {
+      "type": "PATTERN",
+      "value": "\\d+x\\d+|\\d+(\\/\\d+)*"
+    },
+    "rpe": {
+      "type": "PATTERN",
+      "value": "@RPE\\d+(\\.\\d+)?"
+    },
+    "note": {
+      "type": "PATTERN",
+      "value": "\"[^\"]*\""
+    },
+    "measurement_name": {
+      "type": "PATTERN",
+      "value": "[^:]+"
+    },
+    "measurement_value": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
+    },
+    "pr_type": {
+      "type": "PATTERN",
+      "value": "\\d+RM"
     }
   },
   "extras": [

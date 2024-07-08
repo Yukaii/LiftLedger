@@ -2,6 +2,8 @@
 
 Lift Ledger is a plain text format for tracking fitness workouts and progress over time. It's designed to be easy to edit manually while also being parser-friendly and extensible.
 
+It's inspired by [beancount](https://github.com/beancount/beancount). Co-designed with Claude 3.5 Sonnet.
+
 ## Key Features
 
 - Simple, human-readable plain text format

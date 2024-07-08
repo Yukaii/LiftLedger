@@ -24,23 +24,30 @@ module.exports = grammar({
 
     file_path: $ => /[^\s]+/,
 
-    exercises_block: $ => seq(
+   exercises_block: $ => seq(
       '@exercises',
-      repeat(seq($.exercise_definition, optional('\n'))),
-      '@end-exercises'
+      '\n',
+      repeat($.exercise_definition),
+      '@end-exercises',
+      '\n'
     ),
 
     exercise_definition: $ => seq(
+      /\s+/,
       '[', $.exercise_name, ']',
       '\n',
-      repeat(seq($.exercise_attribute, optional('\n')))
+      repeat($.exercise_attribute),
+      '\n'
     ),
 
+    exercise_name: $ => /[^\]]+/,
+
     exercise_attribute: $ => seq(
+      /\s*/,
       $.attribute_name,
       ':',
-      optional(/\s+/),
-      $.attribute_value
+      /\s*/,
+      $.attribute_value,
     ),
 
     attribute_name: $ => /[a-zA-Z_]+/,
@@ -58,7 +65,7 @@ module.exports = grammar({
 
     template_exercise: $ => seq(
       /\s+/,
-      $.exercise_name,
+      $.template_exercise_name,
       ':',
       $.template_exercise_details,
       '\n'
@@ -119,7 +126,7 @@ module.exports = grammar({
 
     date: $ => /\d{4}-\d{2}-\d{2}/,
     workout_name: $ => /[^\n]+/,
-    exercise_name: $ => /[^:\n]+/,
+    template_exercise_name: $ => /[^\n]+/,
     measurement_name: $ => /[^:]+/,
     measurement_value: $ => /[^\n]+/,
     pr_type: $ => /\d+RM/,

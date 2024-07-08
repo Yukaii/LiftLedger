@@ -87,6 +87,10 @@
           "value": "@exercises"
         },
         {
+          "type": "STRING",
+          "value": "\n"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
@@ -96,12 +100,20 @@
         {
           "type": "STRING",
           "value": "@end-exercises"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
     "exercise_definition": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
         {
           "type": "STRING",
           "value": "["
@@ -115,17 +127,33 @@
           "value": "]"
         },
         {
+          "type": "STRING",
+          "value": "\n"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
             "name": "exercise_attribute"
           }
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
+    },
+    "exercise_name": {
+      "type": "PATTERN",
+      "value": "[^\\]]+"
     },
     "exercise_attribute": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "PATTERN",
+          "value": "\\s*"
+        },
         {
           "type": "SYMBOL",
           "name": "attribute_name"
@@ -133,6 +161,10 @@
         {
           "type": "STRING",
           "value": ":"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\s*"
         },
         {
           "type": "SYMBOL",
@@ -146,7 +178,7 @@
     },
     "attribute_value": {
       "type": "PATTERN",
-      "value": ".+"
+      "value": "[^\\n]+"
     },
     "template_block": {
       "type": "SEQ",
@@ -189,7 +221,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "exercise_name"
+          "name": "template_exercise_name"
         },
         {
           "type": "STRING",
@@ -384,9 +416,9 @@
       "type": "PATTERN",
       "value": "[^\\n]+"
     },
-    "exercise_name": {
+    "template_exercise_name": {
       "type": "PATTERN",
-      "value": "[^:\\n]+"
+      "value": "[^\\n]+"
     },
     "measurement_name": {
       "type": "PATTERN",

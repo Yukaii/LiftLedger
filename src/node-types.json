@@ -1,5 +1,10 @@
 [
   {
+    "type": "attribute_value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -271,11 +276,11 @@
       "required": true,
       "types": [
         {
-          "type": "exercise_name",
+          "type": "template_exercise_details",
           "named": true
         },
         {
-          "type": "template_exercise_details",
+          "type": "template_exercise_name",
           "named": true
         }
       ]
@@ -283,6 +288,11 @@
   },
   {
     "type": "template_exercise_details",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "template_exercise_name",
     "named": true,
     "fields": {}
   },
@@ -358,10 +368,6 @@
   },
   {
     "type": "attribute_name",
-    "named": true
-  },
-  {
-    "type": "attribute_value",
     "named": true
   },
   {

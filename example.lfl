@@ -1,0 +1,38 @@
+; Lift Ledger Format Example
+
+@exercises
+    [Squat]
+    id:          SQ001
+    description: Barbell squat targeting quads, glutes, and core
+    tutorial:    https://example.com/squat-tutorial
+    image:       squat.jpg
+
+    [Deadlift]
+    id:          DL001
+    description: Compound exercise for posterior chain
+    tutorial:    https://example.com/deadlift-tutorial
+    image:       deadlift.jpg
+@end-exercises
+
+@template Leg Day
+    Squat:      100kg 5x3 @RPE8
+    Deadlift:   120kg 5x3 @RPE7
+    Leg Press:  150kg 10x3
+    Calf Raises: 50kg 15x4
+@end-template
+
+2023-03-01 * Leg Day
+    Squat:      100kg 5/5/4 @RPE8 "Felt tired on last set"
+    Deadlift:   120kg 5/5/3 @RPE7 "Lower back tight, stopped early"
+    Leg Press:  150kg 10/10/8 "Fatigue on last set"
+    Calf Raises: 50kg 15x4
+
+2023-03-05 # Measurements
+    Weight:   75kg
+    Body Fat: 15%
+    Chest:    100cm
+    Waist:    80cm
+
+2023-03-07 ^ PR
+    Squat 1RM:    140kg
+    Deadlift 1RM: 160kg

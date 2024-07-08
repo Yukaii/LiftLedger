@@ -67,6 +67,7 @@ module.exports = grammar({
       /\s+/,
       $.template_exercise_name,
       ':',
+      /\s+/,
       $.template_exercise_details,
       '\n'
     ),
@@ -82,13 +83,15 @@ module.exports = grammar({
     ),
 
     logged_exercise: $ => seq(
-      /\s+/,
-      $.exercise_name,
+      /\s*/,
+      $.logged_exercise_name,
       ':',
+      /\s+/,
       $.logged_exercise_details,
       '\n'
     ),
 
+    logged_exercise_name: $ => /[^\:]+/,
     logged_exercise_details: $ => /[^\n]+/,
 
     measurement_entry: $ => seq(
@@ -126,7 +129,7 @@ module.exports = grammar({
 
     date: $ => /\d{4}-\d{2}-\d{2}/,
     workout_name: $ => /[^\n]+/,
-    template_exercise_name: $ => /[^\n]+/,
+    template_exercise_name: $ => /[^\:]+/,
     measurement_name: $ => /[^:]+/,
     measurement_value: $ => /[^\n]+/,
     pr_type: $ => /\d+RM/,

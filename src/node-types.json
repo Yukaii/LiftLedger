@@ -109,11 +109,11 @@
       "required": true,
       "types": [
         {
-          "type": "exercise_name",
+          "type": "logged_exercise_details",
           "named": true
         },
         {
-          "type": "logged_exercise_details",
+          "type": "logged_exercise_name",
           "named": true
         }
       ]
@@ -121,6 +121,11 @@
   },
   {
     "type": "logged_exercise_details",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "logged_exercise_name",
     "named": true,
     "fields": {}
   },

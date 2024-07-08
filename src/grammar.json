@@ -228,6 +228,10 @@
           "value": ":"
         },
         {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
+        {
           "type": "SYMBOL",
           "name": "template_exercise_details"
         },
@@ -274,15 +278,19 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "\\s+"
+          "value": "\\s*"
         },
         {
           "type": "SYMBOL",
-          "name": "exercise_name"
+          "name": "logged_exercise_name"
         },
         {
           "type": "STRING",
           "value": ":"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\s+"
         },
         {
           "type": "SYMBOL",
@@ -293,6 +301,10 @@
           "value": "\n"
         }
       ]
+    },
+    "logged_exercise_name": {
+      "type": "PATTERN",
+      "value": "[^\\:]+"
     },
     "logged_exercise_details": {
       "type": "PATTERN",
@@ -418,7 +430,7 @@
     },
     "template_exercise_name": {
       "type": "PATTERN",
-      "value": "[^\\n]+"
+      "value": "[^\\:]+"
     },
     "measurement_name": {
       "type": "PATTERN",

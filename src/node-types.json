@@ -108,23 +108,16 @@
           "named": true
         },
         {
-          "type": "note",
-          "named": true
-        },
-        {
-          "type": "reps",
-          "named": true
-        },
-        {
-          "type": "rpe",
-          "named": true
-        },
-        {
-          "type": "weight",
+          "type": "logged_exercise_details",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "logged_exercise_details",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "measurement",
@@ -282,23 +275,16 @@
           "named": true
         },
         {
-          "type": "note",
-          "named": true
-        },
-        {
-          "type": "reps",
-          "named": true
-        },
-        {
-          "type": "rpe",
-          "named": true
-        },
-        {
-          "type": "weight",
+          "type": "template_exercise_details",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "template_exercise_details",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "template_name",
@@ -395,19 +381,7 @@
     "named": true
   },
   {
-    "type": "note",
-    "named": true
-  },
-  {
     "type": "pr_type",
-    "named": true
-  },
-  {
-    "type": "reps",
-    "named": true
-  },
-  {
-    "type": "rpe",
     "named": true
   },
   {

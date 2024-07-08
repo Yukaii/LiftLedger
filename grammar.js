@@ -26,27 +26,30 @@ module.exports = grammar({
 
     exercises_block: $ => seq(
       '@exercises',
-      repeat($.exercise_definition),
+      repeat(seq($.exercise_definition, optional('\n'))),
       '@end-exercises'
     ),
 
     exercise_definition: $ => seq(
       '[', $.exercise_name, ']',
-      repeat($.exercise_attribute)
+      '\n',
+      repeat(seq($.exercise_attribute, optional('\n')))
     ),
 
     exercise_attribute: $ => seq(
       $.attribute_name,
       ':',
+      optional(/\s+/),
       $.attribute_value
     ),
 
     attribute_name: $ => /[a-zA-Z_]+/,
-    attribute_value: $ => /.+/,
+    attribute_value: $ => /[^\n]+/,
 
     template_block: $ => seq(
       '@template',
       $.template_name,
+      '\n',
       repeat($.template_exercise),
       '@end-template'
     ),
@@ -54,9 +57,11 @@ module.exports = grammar({
     template_name: $ => /[^\n]+/,
 
     template_exercise: $ => seq(
+      /\s+/,
       $.exercise_name,
       ':',
-      $.template_exercise_details
+      $.template_exercise_details,
+      '\n'
     ),
 
     template_exercise_details: $ => /[^\n]+/,
@@ -65,13 +70,16 @@ module.exports = grammar({
       $.date,
       '*',
       $.workout_name,
+      '\n',
       repeat($.logged_exercise)
     ),
 
     logged_exercise: $ => seq(
+      /\s+/,
       $.exercise_name,
       ':',
-      $.logged_exercise_details
+      $.logged_exercise_details,
+      '\n'
     ),
 
     logged_exercise_details: $ => /[^\n]+/,
@@ -80,27 +88,33 @@ module.exports = grammar({
       $.date,
       '#',
       'Measurements',
+      '\n',
       repeat($.measurement)
     ),
 
     measurement: $ => seq(
+      /\s+/,
       $.measurement_name,
       ':',
-      $.measurement_value
+      $.measurement_value,
+      '\n'
     ),
 
     pr_entry: $ => seq(
       $.date,
       '^',
       'PR',
+      '\n',
       repeat($.pr_record)
     ),
 
     pr_record: $ => seq(
+      /\s+/,
       $.exercise_name,
       $.pr_type,
       ':',
-      $.weight
+      $.weight,
+      '\n'
     ),
 
     date: $ => /\d{4}-\d{2}-\d{2}/,

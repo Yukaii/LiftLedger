@@ -123,10 +123,6 @@
         }
       ]
     },
-    "exercise_name": {
-      "type": "PATTERN",
-      "value": "[^\\]]+"
-    },
     "exercise_attribute": {
       "type": "SEQ",
       "members": [
@@ -164,6 +160,10 @@
           "name": "template_name"
         },
         {
+          "type": "STRING",
+          "value": "\n"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
@@ -184,6 +184,10 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
+        {
           "type": "SYMBOL",
           "name": "exercise_name"
         },
@@ -193,37 +197,17 @@
         },
         {
           "type": "SYMBOL",
-          "name": "weight"
+          "name": "template_exercise_details"
         },
         {
-          "type": "SYMBOL",
-          "name": "reps"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "rpe"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "note"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "STRING",
+          "value": "\n"
         }
       ]
+    },
+    "template_exercise_details": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
     },
     "log_entry": {
       "type": "SEQ",
@@ -241,6 +225,10 @@
           "name": "workout_name"
         },
         {
+          "type": "STRING",
+          "value": "\n"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
@@ -253,6 +241,10 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
+        {
           "type": "SYMBOL",
           "name": "exercise_name"
         },
@@ -262,37 +254,17 @@
         },
         {
           "type": "SYMBOL",
-          "name": "weight"
+          "name": "logged_exercise_details"
         },
         {
-          "type": "SYMBOL",
-          "name": "reps"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "rpe"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "note"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "STRING",
+          "value": "\n"
         }
       ]
+    },
+    "logged_exercise_details": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
     },
     "measurement_entry": {
       "type": "SEQ",
@@ -310,6 +282,10 @@
           "value": "Measurements"
         },
         {
+          "type": "STRING",
+          "value": "\n"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
@@ -322,6 +298,10 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
+        {
           "type": "SYMBOL",
           "name": "measurement_name"
         },
@@ -332,6 +312,10 @@
         {
           "type": "SYMBOL",
           "name": "measurement_value"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
@@ -351,6 +335,10 @@
           "value": "PR"
         },
         {
+          "type": "STRING",
+          "value": "\n"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
@@ -362,6 +350,10 @@
     "pr_record": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "PATTERN",
+          "value": "\\s+"
+        },
         {
           "type": "SYMBOL",
           "name": "exercise_name"
@@ -377,6 +369,10 @@
         {
           "type": "SYMBOL",
           "name": "weight"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
@@ -388,21 +384,9 @@
       "type": "PATTERN",
       "value": "[^\\n]+"
     },
-    "weight": {
+    "exercise_name": {
       "type": "PATTERN",
-      "value": "\\d+(\\.\\d+)?kg|BW"
-    },
-    "reps": {
-      "type": "PATTERN",
-      "value": "\\d+x\\d+|\\d+(\\/\\d+)*"
-    },
-    "rpe": {
-      "type": "PATTERN",
-      "value": "@RPE\\d+(\\.\\d+)?"
-    },
-    "note": {
-      "type": "PATTERN",
-      "value": "\"[^\"]*\""
+      "value": "[^:\\n]+"
     },
     "measurement_name": {
       "type": "PATTERN",
@@ -415,6 +399,10 @@
     "pr_type": {
       "type": "PATTERN",
       "value": "\\d+RM"
+    },
+    "weight": {
+      "type": "PATTERN",
+      "value": "\\d+(\\.\\d+)?kg|BW"
     }
   },
   "extras": [

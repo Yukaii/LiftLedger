@@ -340,14 +340,6 @@
         }
       ]
     },
-    "logged_exercise_name": {
-      "type": "PATTERN",
-      "value": "[^\\:\\n]+"
-    },
-    "logged_exercise_details": {
-      "type": "PATTERN",
-      "value": "[^\\n]+"
-    },
     "measurement_entry": {
       "type": "SEQ",
       "members": [
@@ -477,6 +469,14 @@
           "value": "\n"
         }
       ]
+    },
+    "logged_exercise_name": {
+      "type": "PATTERN",
+      "value": "[^\\:\\n]+"
+    },
+    "logged_exercise_details": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
     },
     "pr_exercise_name": {
       "type": "PATTERN",

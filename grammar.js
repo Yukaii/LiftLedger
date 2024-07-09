@@ -98,9 +98,6 @@ module.exports = grammar({
       '\n'
     ),
 
-    logged_exercise_name: $ => /[^\:\n]+/,
-    logged_exercise_details: $ => /[^\n]+/,
-
     measurement_entry: $ => seq(
       $.date,
       '#',
@@ -139,6 +136,8 @@ module.exports = grammar({
       '\n'
     ),
 
+    logged_exercise_name: $ => /[^\:\n]+/,
+    logged_exercise_details: $ => /[^\n]+/,
     pr_exercise_name: $ => /[^:\n]+/,
     pr_type: $ => /\d+RM/,
     weight: $ => /\d+(\.\d+)?kg|BW/,

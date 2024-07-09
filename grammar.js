@@ -5,18 +5,20 @@ module.exports = grammar({
   name: 'liftledger',
 
   rules: {
-    source_file: $ => repeat($._line),
+    source_file: $ => repeat($._entry),
 
-    _line: $ => choice(
+    _entry: $ => choice(
+      $.log_entry,
+      $.measurement_entry,
+      $.pr_entry,
       $.comment,
       $.include,
       $.exercises_block,
       $.template_block,
-      $.measurement_entry,
-      $.pr_entry,
-      $.log_entry,
-      '\n'
+      $._blank_line
     ),
+
+    _blank_line: $ => /\r?\n/,
 
     comment: $ => seq(';', /.*/),
 
@@ -61,7 +63,7 @@ module.exports = grammar({
     template_block: $ => seq(
       '@template',
       $.template_name,
-      '\n',
+      $._line_break,
       repeat($.template_exercise),
       '@end-template'
     ),
@@ -74,7 +76,7 @@ module.exports = grammar({
       ':',
       optional(/\s/),
       $.template_exercise_details,
-      '\n'
+      $._line_break
     ),
 
     template_exercise_details: $ => /[^\n]+/,
@@ -84,9 +86,9 @@ module.exports = grammar({
       $.date,
       '*',
       $.workout_name,
-      '\n',
+      $._line_break,
       repeat($.logged_exercise),
-      '\n\n',
+      repeat1('\n')
     ),
 
     logged_exercise: $ => seq(
@@ -95,16 +97,16 @@ module.exports = grammar({
       ':',
       /\s+/,
       $.logged_exercise_details,
-      '\n'
+      $._line_break
     ),
 
     measurement_entry: $ => seq(
       $.date,
       '#',
       'Measurements',
-      '\n',
+      $._line_break,
       repeat($.measurement),
-      '\n\n',
+      repeat('\n')
     ),
 
     measurement: $ => seq(
@@ -113,16 +115,16 @@ module.exports = grammar({
       ':',
       /\s+/,
       $.measurement_value,
-      '\n'
+      $._line_break
     ),
 
     pr_entry: $ => seq(
       $.date,
       '^',
       'PR',
-      '\n',
+      $._line_break,
       repeat($.pr_record),
-      '\n\n'
+      repeat('\n')
     ),
 
     pr_record: $ => seq(
@@ -133,7 +135,7 @@ module.exports = grammar({
       $.pr_type,
       /\s+/,
       $.weight,
-      '\n'
+      $._line_break
     ),
 
     logged_exercise_name: $ => /[^\:\n]+/,

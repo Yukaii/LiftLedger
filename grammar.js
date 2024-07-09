@@ -79,11 +79,12 @@ module.exports = grammar({
       '*',
       $.workout_name,
       '\n',
-      repeat($.logged_exercise)
+      repeat($.logged_exercise),
+      '\n\n',
     ),
 
     logged_exercise: $ => seq(
-      /\s*/,
+      /\s+/,
       $.logged_exercise_name,
       ':',
       /\s+/,
@@ -99,13 +100,15 @@ module.exports = grammar({
       '#',
       'Measurements',
       '\n',
-      repeat($.measurement)
+      repeat($.measurement),
+      '\n\n',
     ),
 
     measurement: $ => seq(
       /\s+/,
       $.measurement_name,
       ':',
+      /\s+/,
       $.measurement_value,
       '\n'
     ),
@@ -115,24 +118,28 @@ module.exports = grammar({
       '^',
       'PR',
       '\n',
-      repeat($.pr_record)
+      repeat($.pr_record),
+      '\n\n'
     ),
 
     pr_record: $ => seq(
       /\s+/,
-      $.exercise_name,
-      $.pr_type,
+      $.pr_exercise_name,
       ':',
+      /\s*/,
+      $.pr_type,
+      /\s+/,
       $.weight,
       '\n'
     ),
 
+    pr_exercise_name: $ => /[^:\n]+/,
+    pr_type: $ => /\d+RM/,
+    weight: $ => /\d+(\.\d+)?kg|BW/,
     date: $ => /\d{4}-\d{2}-\d{2}/,
     workout_name: $ => /[^\n]+/,
     template_exercise_name: $ => /[^\:\n]+/,
     measurement_name: $ => /[^:]+/,
     measurement_value: $ => /[^\n]+/,
-    pr_type: $ => /\d+RM/,
-    weight: $ => /\d+(\.\d+)?kg|BW/
   }
 });

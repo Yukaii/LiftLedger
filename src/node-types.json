@@ -200,7 +200,7 @@
       "required": true,
       "types": [
         {
-          "type": "exercise_name",
+          "type": "pr_exercise_name",
           "named": true
         },
         {
@@ -316,6 +316,10 @@
     "named": false
   },
   {
+    "type": "\n\n",
+    "named": false
+  },
+  {
     "type": "#",
     "named": false
   },
@@ -389,6 +393,10 @@
   },
   {
     "type": "measurement_name",
+    "named": true
+  },
+  {
+    "type": "pr_exercise_name",
     "named": true
   },
   {

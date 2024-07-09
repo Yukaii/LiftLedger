@@ -52,8 +52,8 @@ It's inspired by [beancount](https://github.com/beancount/beancount). Co-designe
     Waist:    80cm
 
 2023-03-07 ^ PR
-    Squat 1RM:    140kg
-    Deadlift 1RM: 160kg
+    Squat:    1RM 140kg
+    Deadlift: 1RM 160kg
 ```
 
 ## Format Explanation
@@ -79,4 +79,3 @@ The format is designed to be extended by third-party tools. Special comments (e.
 4. Use comments to add any additional information
 
 For more detailed information and examples, please refer to the full documentation.
-

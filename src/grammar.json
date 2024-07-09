@@ -270,6 +270,10 @@
             "type": "SYMBOL",
             "name": "logged_exercise"
           }
+        },
+        {
+          "type": "STRING",
+          "value": "\n\n"
         }
       ]
     },
@@ -278,7 +282,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "\\s*"
+          "value": "\\s+"
         },
         {
           "type": "SYMBOL",
@@ -335,6 +339,10 @@
             "type": "SYMBOL",
             "name": "measurement"
           }
+        },
+        {
+          "type": "STRING",
+          "value": "\n\n"
         }
       ]
     },
@@ -352,6 +360,10 @@
         {
           "type": "STRING",
           "value": ":"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\s+"
         },
         {
           "type": "SYMBOL",
@@ -388,6 +400,10 @@
             "type": "SYMBOL",
             "name": "pr_record"
           }
+        },
+        {
+          "type": "STRING",
+          "value": "\n\n"
         }
       ]
     },
@@ -400,15 +416,23 @@
         },
         {
           "type": "SYMBOL",
-          "name": "exercise_name"
+          "name": "pr_exercise_name"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\s*"
         },
         {
           "type": "SYMBOL",
           "name": "pr_type"
         },
         {
-          "type": "STRING",
-          "value": ":"
+          "type": "PATTERN",
+          "value": "\\s+"
         },
         {
           "type": "SYMBOL",
@@ -419,6 +443,18 @@
           "value": "\n"
         }
       ]
+    },
+    "pr_exercise_name": {
+      "type": "PATTERN",
+      "value": "[^:\\n]+"
+    },
+    "pr_type": {
+      "type": "PATTERN",
+      "value": "\\d+RM"
+    },
+    "weight": {
+      "type": "PATTERN",
+      "value": "\\d+(\\.\\d+)?kg|BW"
     },
     "date": {
       "type": "PATTERN",
@@ -439,14 +475,6 @@
     "measurement_value": {
       "type": "PATTERN",
       "value": "[^\\n]+"
-    },
-    "pr_type": {
-      "type": "PATTERN",
-      "value": "\\d+RM"
-    },
-    "weight": {
-      "type": "PATTERN",
-      "value": "\\d+(\\.\\d+)?kg|BW"
     }
   },
   "extras": [

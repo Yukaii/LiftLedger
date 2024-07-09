@@ -4,6 +4,10 @@
 module.exports = grammar({
   name: 'liftledger',
 
+  conflicts: $ => [
+    [$.exercise, $._exercises_end]
+  ],
+
   rules: {
     source_file: $ => repeat($._line),
 
@@ -24,34 +28,39 @@ module.exports = grammar({
 
     file_path: $ => /[^\s]+/,
 
-   exercises_block: $ => seq(
-      '@exercises',
-      '\n',
-      repeat($.exercise_definition),
-      '@end-exercises',
-      '\n'
+    exercises_block: $ => seq(
+      $.exercises_start,
+      repeat($._line_break),
+      repeat($.exercise),
+      $._exercises_end
     ),
 
-    exercise_definition: $ => seq(
-      /\s+/,
-      '[', $.exercise_name, ']',
-      '\n',
-      repeat($.exercise_attribute),
-      '\n'
+    exercises_start: $ => '@exercises',
+
+    _exercises_end: $ => '@end-exercises',
+
+    exercise: $ => seq(
+      '[',
+      $.exercise_name,
+      ']',
+      repeat($._line_break),
+      repeat($.attribute)
     ),
 
     exercise_name: $ => /[^\]]+/,
 
-    exercise_attribute: $ => seq(
-      /\s*/,
+    attribute: $ => seq(
       $.attribute_name,
       ':',
-      /\s*/,
+      optional(/\s/),
       $.attribute_value,
+      $._line_break
     ),
 
     attribute_name: $ => /[a-zA-Z_]+/,
     attribute_value: $ => /[^\n]+/,
+
+    _line_break: $ => /\r?\n/,
 
     template_block: $ => seq(
       '@template',

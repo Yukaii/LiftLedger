@@ -1,16 +1,6 @@
 [
   {
-    "type": "attribute_value",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "comment",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "exercise_attribute",
+    "type": "attribute",
     "named": true,
     "fields": {},
     "children": {
@@ -29,7 +19,17 @@
     }
   },
   {
-    "type": "exercise_definition",
+    "type": "attribute_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "exercise",
     "named": true,
     "fields": {},
     "children": {
@@ -37,7 +37,7 @@
       "required": true,
       "types": [
         {
-          "type": "exercise_attribute",
+          "type": "attribute",
           "named": true
         },
         {
@@ -53,10 +53,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "exercise_definition",
+          "type": "exercise",
+          "named": true
+        },
+        {
+          "type": "exercises_start",
           "named": true
         }
       ]
@@ -336,15 +340,7 @@
     "named": false
   },
   {
-    "type": "@end-exercises",
-    "named": false
-  },
-  {
     "type": "@end-template",
-    "named": false
-  },
-  {
-    "type": "@exercises",
     "named": false
   },
   {
@@ -385,6 +381,10 @@
   },
   {
     "type": "exercise_name",
+    "named": true
+  },
+  {
+    "type": "exercises_start",
     "named": true
   },
   {

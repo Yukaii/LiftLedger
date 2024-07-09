@@ -34,9 +34,9 @@ enum ts_symbol_identifiers {
   sym__line_break = 16,
   anon_sym_ATtemplate = 17,
   anon_sym_ATend_DASHtemplate = 18,
-  anon_sym_STAR = 19,
-  anon_sym_LF_LF = 20,
-  aux_sym_logged_exercise_name_token1 = 21,
+  aux_sym_template_exercise_name_token1 = 19,
+  anon_sym_STAR = 20,
+  anon_sym_LF_LF = 21,
   anon_sym_POUND = 22,
   anon_sym_Measurements = 23,
   anon_sym_CARET = 24,
@@ -59,16 +59,16 @@ enum ts_symbol_identifiers {
   sym_template_name = 41,
   sym_template_exercise = 42,
   sym_template_exercise_details = 43,
-  sym_log_entry = 44,
-  sym_logged_exercise = 45,
-  sym_logged_exercise_name = 46,
-  sym_logged_exercise_details = 47,
-  sym_measurement_entry = 48,
-  sym_measurement = 49,
-  sym_pr_entry = 50,
-  sym_pr_record = 51,
-  sym_workout_name = 52,
-  sym_template_exercise_name = 53,
+  sym_template_exercise_name = 44,
+  sym_log_entry = 45,
+  sym_logged_exercise = 46,
+  sym_logged_exercise_name = 47,
+  sym_logged_exercise_details = 48,
+  sym_measurement_entry = 49,
+  sym_measurement = 50,
+  sym_pr_entry = 51,
+  sym_pr_record = 52,
+  sym_workout_name = 53,
   sym_measurement_value = 54,
   aux_sym_source_file_repeat1 = 55,
   aux_sym_exercises_block_repeat1 = 56,
@@ -100,9 +100,9 @@ static const char * const ts_symbol_names[] = {
   [sym__line_break] = "_line_break",
   [anon_sym_ATtemplate] = "@template",
   [anon_sym_ATend_DASHtemplate] = "@end-template",
+  [aux_sym_template_exercise_name_token1] = "template_exercise_name_token1",
   [anon_sym_STAR] = "*",
   [anon_sym_LF_LF] = "\n\n",
-  [aux_sym_logged_exercise_name_token1] = "logged_exercise_name_token1",
   [anon_sym_POUND] = "#",
   [anon_sym_Measurements] = "Measurements",
   [anon_sym_CARET] = "^",
@@ -125,6 +125,7 @@ static const char * const ts_symbol_names[] = {
   [sym_template_name] = "template_name",
   [sym_template_exercise] = "template_exercise",
   [sym_template_exercise_details] = "template_exercise_details",
+  [sym_template_exercise_name] = "template_exercise_name",
   [sym_log_entry] = "log_entry",
   [sym_logged_exercise] = "logged_exercise",
   [sym_logged_exercise_name] = "logged_exercise_name",
@@ -134,7 +135,6 @@ static const char * const ts_symbol_names[] = {
   [sym_pr_entry] = "pr_entry",
   [sym_pr_record] = "pr_record",
   [sym_workout_name] = "workout_name",
-  [sym_template_exercise_name] = "template_exercise_name",
   [sym_measurement_value] = "measurement_value",
   [aux_sym_source_file_repeat1] = "source_file_repeat1",
   [aux_sym_exercises_block_repeat1] = "exercises_block_repeat1",
@@ -166,9 +166,9 @@ static const TSSymbol ts_symbol_map[] = {
   [sym__line_break] = sym__line_break,
   [anon_sym_ATtemplate] = anon_sym_ATtemplate,
   [anon_sym_ATend_DASHtemplate] = anon_sym_ATend_DASHtemplate,
+  [aux_sym_template_exercise_name_token1] = aux_sym_template_exercise_name_token1,
   [anon_sym_STAR] = anon_sym_STAR,
   [anon_sym_LF_LF] = anon_sym_LF_LF,
-  [aux_sym_logged_exercise_name_token1] = aux_sym_logged_exercise_name_token1,
   [anon_sym_POUND] = anon_sym_POUND,
   [anon_sym_Measurements] = anon_sym_Measurements,
   [anon_sym_CARET] = anon_sym_CARET,
@@ -191,6 +191,7 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_template_name] = sym_template_name,
   [sym_template_exercise] = sym_template_exercise,
   [sym_template_exercise_details] = sym_template_exercise_details,
+  [sym_template_exercise_name] = sym_template_exercise_name,
   [sym_log_entry] = sym_log_entry,
   [sym_logged_exercise] = sym_logged_exercise,
   [sym_logged_exercise_name] = sym_logged_exercise_name,
@@ -200,7 +201,6 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_pr_entry] = sym_pr_entry,
   [sym_pr_record] = sym_pr_record,
   [sym_workout_name] = sym_workout_name,
-  [sym_template_exercise_name] = sym_template_exercise_name,
   [sym_measurement_value] = sym_measurement_value,
   [aux_sym_source_file_repeat1] = aux_sym_source_file_repeat1,
   [aux_sym_exercises_block_repeat1] = aux_sym_exercises_block_repeat1,
@@ -289,16 +289,16 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = false,
   },
+  [aux_sym_template_exercise_name_token1] = {
+    .visible = false,
+    .named = false,
+  },
   [anon_sym_STAR] = {
     .visible = true,
     .named = false,
   },
   [anon_sym_LF_LF] = {
     .visible = true,
-    .named = false,
-  },
-  [aux_sym_logged_exercise_name_token1] = {
-    .visible = false,
     .named = false,
   },
   [anon_sym_POUND] = {
@@ -389,6 +389,10 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
+  [sym_template_exercise_name] = {
+    .visible = true,
+    .named = true,
+  },
   [sym_log_entry] = {
     .visible = true,
     .named = true,
@@ -422,10 +426,6 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = true,
   },
   [sym_workout_name] = {
-    .visible = true,
-    .named = true,
-  },
-  [sym_template_exercise_name] = {
     .visible = true,
     .named = true,
   },
@@ -585,7 +585,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '\n', 100,
         '\r', 105,
         '#', 143,
-        '*', 140,
+        '*', 141,
         ':', 114,
         ';', 101,
         '@', 33,
@@ -627,7 +627,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(118);
       if (lookahead != 0 &&
-          lookahead != ':') ADVANCE(142);
+          lookahead != ':') ADVANCE(140);
       END_STATE();
     case 4:
       if (lookahead == '\n') ADVANCE(115);
@@ -964,7 +964,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 97:
       if (eof) ADVANCE(98);
       if (lookahead == '#') ADVANCE(143);
-      if (lookahead == '*') ADVANCE(140);
+      if (lookahead == '*') ADVANCE(141);
       if (lookahead == ':') ADVANCE(114);
       if (lookahead == '@') ADVANCE(41);
       if (lookahead == '[') ADVANCE(111);
@@ -985,7 +985,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 100:
       ACCEPT_TOKEN(anon_sym_LF);
-      if (lookahead == '\n') ADVANCE(141);
+      if (lookahead == '\n') ADVANCE(142);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(107);
       END_STATE();
@@ -1015,7 +1015,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 106:
       ACCEPT_TOKEN(aux_sym_include_token1);
-      if (lookahead == '\n') ADVANCE(141);
+      if (lookahead == '\n') ADVANCE(142);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(107);
       END_STATE();
@@ -1066,7 +1066,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       ACCEPT_TOKEN(aux_sym_attribute_token1);
       if (lookahead != 0 &&
           lookahead != '\n' &&
-          lookahead != ':') ADVANCE(142);
+          lookahead != ':') ADVANCE(140);
       END_STATE();
     case 119:
       ACCEPT_TOKEN(aux_sym_attribute_token1);
@@ -1196,18 +1196,18 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       ACCEPT_TOKEN(anon_sym_ATend_DASHtemplate);
       END_STATE();
     case 140:
-      ACCEPT_TOKEN(anon_sym_STAR);
+      ACCEPT_TOKEN(aux_sym_template_exercise_name_token1);
+      if (lookahead != 0 &&
+          lookahead != '\n' &&
+          lookahead != ':') ADVANCE(140);
       END_STATE();
     case 141:
+      ACCEPT_TOKEN(anon_sym_STAR);
+      END_STATE();
+    case 142:
       ACCEPT_TOKEN(anon_sym_LF_LF);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(107);
-      END_STATE();
-    case 142:
-      ACCEPT_TOKEN(aux_sym_logged_exercise_name_token1);
-      if (lookahead != 0 &&
-          lookahead != '\n' &&
-          lookahead != ':') ADVANCE(142);
       END_STATE();
     case 143:
       ACCEPT_TOKEN(anon_sym_POUND);
@@ -1922,7 +1922,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(3), 1,
       aux_sym_attribute_token1,
     ACTIONS(170), 1,
-      aux_sym_logged_exercise_name_token1,
+      aux_sym_template_exercise_name_token1,
     STATE(62), 1,
       sym_logged_exercise_name,
   [674] = 2,
@@ -1956,7 +1956,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(3), 1,
       aux_sym_attribute_token1,
     ACTIONS(180), 1,
-      aux_sym_logged_exercise_name_token1,
+      aux_sym_template_exercise_name_token1,
     STATE(73), 1,
       sym_template_exercise_name,
   [722] = 2,

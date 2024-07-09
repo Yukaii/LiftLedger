@@ -4,10 +4,6 @@
 module.exports = grammar({
   name: 'liftledger',
 
-  conflicts: $ => [
-    [$.exercise, $._exercises_end]
-  ],
-
   rules: {
     source_file: $ => repeat($._line),
 
@@ -82,6 +78,7 @@ module.exports = grammar({
     ),
 
     template_exercise_details: $ => /[^\n]+/,
+    template_exercise_name: $ => /[^\:\n]+/,
 
     log_entry: $ => seq(
       $.date,
@@ -147,7 +144,6 @@ module.exports = grammar({
     weight: $ => /\d+(\.\d+)?kg|BW/,
     date: $ => /\d{4}-\d{2}-\d{2}/,
     workout_name: $ => /[^\n]+/,
-    template_exercise_name: $ => /[^\:\n]+/,
     measurement_name: $ => /[^:]+/,
     measurement_value: $ => /[^\n]+/,
   }

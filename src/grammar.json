@@ -259,6 +259,10 @@
       "type": "PATTERN",
       "value": "[^\\n]+"
     },
+    "template_exercise_name": {
+      "type": "PATTERN",
+      "value": "[^\\:\\n]+"
+    },
     "log_entry": {
       "type": "SEQ",
       "members": [
@@ -478,10 +482,6 @@
       "type": "PATTERN",
       "value": "[^\\n]+"
     },
-    "template_exercise_name": {
-      "type": "PATTERN",
-      "value": "[^\\:\\n]+"
-    },
     "measurement_name": {
       "type": "PATTERN",
       "value": "[^:]+"
@@ -497,12 +497,7 @@
       "value": "\\s"
     }
   ],
-  "conflicts": [
-    [
-      "exercise",
-      "_exercises_end"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [],
   "externals": [],
   "inline": [],

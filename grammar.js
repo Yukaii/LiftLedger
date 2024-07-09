@@ -69,10 +69,10 @@ module.exports = grammar({
     template_name: $ => /[^\n]+/,
 
     template_exercise: $ => seq(
-      /\s+/,
+      optional(/\s/),
       $.template_exercise_name,
       ':',
-      /\s+/,
+      optional(/\s/),
       $.template_exercise_details,
       '\n'
     ),

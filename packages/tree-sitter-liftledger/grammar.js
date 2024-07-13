@@ -19,7 +19,7 @@ module.exports = grammar({
       $.include,
       $.exercises_block,
       $.template_block,
-      newline
+      newline,
     ),
 
     comment: $ => seq(';', /.*/),
@@ -76,7 +76,7 @@ module.exports = grammar({
       $.template_exercise_name,
       ':',
       $.template_exercise_details,
-      $._line_break
+      repeat($._line_break)
     ),
 
     template_exercise_details: $ => /[^\n]+/,

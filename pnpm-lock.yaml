@@ -8,6 +8,15 @@ importers:
 
   .: {}
 
+  packages/liftledger-fmt:
+    dependencies:
+      tree-sitter:
+        specifier: ^0.21.1
+        version: 0.21.1
+      tree-sitter-liftledger:
+        specifier: workspace:^
+        version: link:../tree-sitter-liftledger
+
   packages/tree-sitter-liftledger:
     dependencies:
       node-addon-api:

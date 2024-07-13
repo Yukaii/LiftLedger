@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "pnpm run --filter=tree-sitter* watch:playground"
+    "watch": "pnpm run --filter=tree-sitter* watch:playground",
+    "build": "pnpm run --filter=* build"
   },
   "keywords": [],
   "author": "",

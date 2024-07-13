@@ -40,14 +40,10 @@
           "name": "template_block"
         },
         {
-          "type": "SYMBOL",
-          "name": "_blank_line"
+          "type": "PATTERN",
+          "value": "\\r?\\n"
         }
       ]
-    },
-    "_blank_line": {
-      "type": "PATTERN",
-      "value": "\\r?\\n"
     },
     "comment": {
       "type": "SEQ",
@@ -89,13 +85,6 @@
         {
           "type": "SYMBOL",
           "name": "exercises_start"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_line_break"
-          }
         },
         {
           "type": "REPEAT",
@@ -165,18 +154,6 @@
           "value": ":"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "\\s"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
           "type": "SYMBOL",
           "name": "attribute_value"
         },
@@ -192,7 +169,7 @@
     },
     "attribute_value": {
       "type": "PATTERN",
-      "value": "[^\\n]+"
+      "value": "[^\\n\\r]+"
     },
     "_line_break": {
       "type": "PATTERN",
@@ -234,36 +211,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "\\s"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
           "type": "SYMBOL",
           "name": "template_exercise_name"
         },
         {
           "type": "STRING",
           "value": ":"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "\\s"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         },
         {
           "type": "SYMBOL",
@@ -308,13 +261,6 @@
             "type": "SYMBOL",
             "name": "logged_exercise"
           }
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "STRING",
-            "value": "\n"
-          }
         }
       ]
     },
@@ -322,20 +268,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "\\s+"
-        },
-        {
           "type": "SYMBOL",
           "name": "logged_exercise_name"
         },
         {
           "type": "STRING",
           "value": ":"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\s+"
         },
         {
           "type": "SYMBOL",
@@ -372,13 +310,6 @@
             "type": "SYMBOL",
             "name": "measurement"
           }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "STRING",
-            "value": "\n"
-          }
         }
       ]
     },
@@ -386,20 +317,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "\\s+"
-        },
-        {
           "type": "SYMBOL",
           "name": "measurement_name"
         },
         {
           "type": "STRING",
           "value": ":"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\s+"
         },
         {
           "type": "SYMBOL",
@@ -436,23 +359,12 @@
             "type": "SYMBOL",
             "name": "pr_record"
           }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "STRING",
-            "value": "\n"
-          }
         }
       ]
     },
     "pr_record": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "PATTERN",
-          "value": "\\s+"
-        },
         {
           "type": "SYMBOL",
           "name": "pr_exercise_name"
@@ -462,16 +374,8 @@
           "value": ":"
         },
         {
-          "type": "PATTERN",
-          "value": "\\s*"
-        },
-        {
           "type": "SYMBOL",
           "name": "pr_type"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\s+"
         },
         {
           "type": "SYMBOL",
@@ -489,11 +393,11 @@
     },
     "logged_exercise_details": {
       "type": "PATTERN",
-      "value": "[^\\n]+"
+      "value": "[^\\r\\n]+"
     },
     "pr_exercise_name": {
       "type": "PATTERN",
-      "value": "[^:\\n]+"
+      "value": "[^:\\n\\r]+"
     },
     "pr_type": {
       "type": "PATTERN",
@@ -513,17 +417,21 @@
     },
     "measurement_name": {
       "type": "PATTERN",
-      "value": "[^:]+"
+      "value": "[^:\\n\\r]+"
     },
     "measurement_value": {
       "type": "PATTERN",
-      "value": "[^\\n]+"
+      "value": "[^\\n\\r]+"
     }
   },
   "extras": [
     {
+      "type": "SYMBOL",
+      "name": "comment"
+    },
+    {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "[ \\t]"
     }
   ],
   "conflicts": [],

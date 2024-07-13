@@ -124,11 +124,6 @@
     }
   },
   {
-    "type": "logged_exercise_details",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "logged_exercise_name",
     "named": true,
     "fields": {}
@@ -172,6 +167,11 @@
     }
   },
   {
+    "type": "measurement_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "measurement_value",
     "named": true,
     "fields": {}
@@ -194,6 +194,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "pr_exercise_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "pr_record",
@@ -316,10 +321,6 @@
     "fields": {}
   },
   {
-    "type": "\n",
-    "named": false
-  },
-  {
     "type": "#",
     "named": false
   },
@@ -388,11 +389,7 @@
     "named": true
   },
   {
-    "type": "measurement_name",
-    "named": true
-  },
-  {
-    "type": "pr_exercise_name",
+    "type": "logged_exercise_details",
     "named": true
   },
   {

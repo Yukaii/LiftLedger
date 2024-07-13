@@ -211,6 +211,10 @@
         {
           "type": "STRING",
           "value": "@end-template"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
         }
       ]
     },
@@ -234,21 +238,111 @@
           "name": "template_exercise_details"
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_line_break"
-          }
+          "type": "SYMBOL",
+          "name": "_line_break"
         }
       ]
     },
-    "template_exercise_details": {
-      "type": "PATTERN",
-      "value": "[^\\n]+"
-    },
     "template_exercise_name": {
       "type": "PATTERN",
-      "value": "[^\\:\\n]+"
+      "value": "[^:\\n]+"
+    },
+    "template_exercise_details": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "weight"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reps_sets"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "rpe"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "exercise_details": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "weight"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reps_sets"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "rpe"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "reps_sets": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "reps"
+            },
+            {
+              "type": "STRING",
+              "value": "x"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sets"
+            }
+          ]
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d+\\/\\d+\\/\\d+"
+        }
+      ]
+    },
+    "reps": {
+      "type": "PATTERN",
+      "value": "\\d+"
+    },
+    "sets": {
+      "type": "PATTERN",
+      "value": "\\d+"
+    },
+    "rpe": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@RPE"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d+(\\.\\d+)?"
+        }
+      ]
     },
     "log_entry": {
       "type": "SEQ",
@@ -291,11 +385,44 @@
         },
         {
           "type": "SYMBOL",
-          "name": "logged_exercise_details"
+          "name": "exercise_details"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "exercise_note"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
           "name": "_line_break"
+        }
+      ]
+    },
+    "logged_exercise_name": {
+      "type": "PATTERN",
+      "value": "[^:\\n]+"
+    },
+    "exercise_note": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\"]+"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
         }
       ]
     },
@@ -381,7 +508,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "pr_exercise_name"
+          "name": "exercise_name"
         },
         {
           "type": "STRING",
@@ -400,18 +527,6 @@
           "name": "_line_break"
         }
       ]
-    },
-    "logged_exercise_name": {
-      "type": "PATTERN",
-      "value": "[^\\:\\n]+"
-    },
-    "logged_exercise_details": {
-      "type": "PATTERN",
-      "value": "[^\\r\\n]+"
-    },
-    "pr_exercise_name": {
-      "type": "PATTERN",
-      "value": "[^:\\n\\r]+"
     },
     "pr_type": {
       "type": "PATTERN",

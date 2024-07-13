@@ -48,6 +48,34 @@
     }
   },
   {
+    "type": "exercise_details",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "reps_sets",
+          "named": true
+        },
+        {
+          "type": "rpe",
+          "named": true
+        },
+        {
+          "type": "weight",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exercise_note",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "exercises_block",
     "named": true,
     "fields": {},
@@ -113,7 +141,11 @@
       "required": true,
       "types": [
         {
-          "type": "logged_exercise_details",
+          "type": "exercise_details",
+          "named": true
+        },
+        {
+          "type": "exercise_note",
           "named": true
         },
         {
@@ -167,11 +199,6 @@
     }
   },
   {
-    "type": "measurement_name",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "measurement_value",
     "named": true,
     "fields": {}
@@ -196,11 +223,6 @@
     }
   },
   {
-    "type": "pr_exercise_name",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "pr_record",
     "named": true,
     "fields": {},
@@ -209,7 +231,7 @@
       "required": true,
       "types": [
         {
-          "type": "pr_exercise_name",
+          "type": "exercise_name",
           "named": true
         },
         {
@@ -222,6 +244,40 @@
         }
       ]
     }
+  },
+  {
+    "type": "reps",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "reps_sets",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "reps",
+          "named": true
+        },
+        {
+          "type": "sets",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rpe",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "sets",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "source_file",
@@ -303,7 +359,25 @@
   {
     "type": "template_exercise_details",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "reps_sets",
+          "named": true
+        },
+        {
+          "type": "rpe",
+          "named": true
+        },
+        {
+          "type": "weight",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "template_exercise_name",
@@ -321,6 +395,10 @@
     "fields": {}
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "#",
     "named": false
   },
@@ -334,6 +412,10 @@
   },
   {
     "type": ";",
+    "named": false
+  },
+  {
+    "type": "@RPE",
     "named": false
   },
   {
@@ -389,7 +471,7 @@
     "named": true
   },
   {
-    "type": "logged_exercise_details",
+    "type": "measurement_name",
     "named": true
   },
   {
@@ -399,5 +481,9 @@
   {
     "type": "weight",
     "named": true
+  },
+  {
+    "type": "x",
+    "named": false
   }
 ]

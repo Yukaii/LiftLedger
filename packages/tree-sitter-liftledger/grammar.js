@@ -67,7 +67,8 @@ module.exports = grammar({
       $.template_name,
       $._line_break,
       repeat($.template_exercise),
-      '@end-template'
+      '@end-template',
+      $._line_break
     ),
 
     template_name: $ => /[^\n]+/,
@@ -76,11 +77,32 @@ module.exports = grammar({
       $.template_exercise_name,
       ':',
       $.template_exercise_details,
-      repeat($._line_break)
+      $._line_break
     ),
 
-    template_exercise_details: $ => /[^\n]+/,
-    template_exercise_name: $ => /[^\:\n]+/,
+    template_exercise_name: $ => /[^:\n]+/,
+
+    template_exercise_details: $ => seq(
+      $.weight,
+      $.reps_sets,
+      optional($.rpe)
+    ),
+
+    exercise_details: $ => seq(
+      $.weight,
+      $.reps_sets,
+      optional($.rpe)
+    ),
+
+    reps_sets: $ => choice(
+      seq($.reps, 'x', $.sets),
+      /\d+\/\d+\/\d+/
+    ),
+
+    reps: $ => /\d+/,
+    sets: $ => /\d+/,
+
+    rpe: $ => seq('@RPE', /\d+(\.\d+)?/),
 
     log_entry: $ => seq(
       $.date,
@@ -93,8 +115,17 @@ module.exports = grammar({
     logged_exercise: $ => seq(
       $.logged_exercise_name,
       ':',
-      $.logged_exercise_details,
+      $.exercise_details,
+      optional($.exercise_note),
       $._line_break
+    ),
+
+    logged_exercise_name: $ => /[^:\n]+/,
+
+    exercise_note: $ => seq(
+      '"',
+      /[^"]+/,
+      '"'
     ),
 
     measurement_entry: $ => seq(
@@ -121,16 +152,13 @@ module.exports = grammar({
     ),
 
     pr_record: $ => seq(
-      $.pr_exercise_name,
+      $.exercise_name,
       ':',
       $.pr_type,
       $.weight,
       $._line_break
     ),
 
-    logged_exercise_name: $ => /[^\:\n]+/,
-    logged_exercise_details: $ => /[^\r\n]+/,
-    pr_exercise_name: $ => /[^:\n\r]+/,
     pr_type: $ => /\d+RM/,
     weight: $ => /\d+(\.\d+)?kg|BW/,
     date: $ => /\d{4}-\d{2}-\d{2}/,

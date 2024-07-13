@@ -87,6 +87,10 @@
           "name": "exercises_start"
         },
         {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
@@ -96,6 +100,10 @@
         {
           "type": "SYMBOL",
           "name": "_exercises_end"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
         }
       ]
     },
@@ -158,8 +166,11 @@
           "name": "attribute_value"
         },
         {
-          "type": "SYMBOL",
-          "name": "_line_break"
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_line_break"
+          }
         }
       ]
     },

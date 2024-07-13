@@ -30,8 +30,10 @@ module.exports = grammar({
 
     exercises_block: $ => seq(
       $.exercises_start,
+      $._line_break,
       repeat($.exercise),
-      $._exercises_end
+      $._exercises_end,
+      $._line_break,
     ),
 
     exercises_start: $ => '@exercises',
@@ -52,7 +54,7 @@ module.exports = grammar({
       $.attribute_name,
       ':',
       $.attribute_value,
-      $._line_break
+      repeat($._line_break)
     ),
 
     attribute_name: $ => /[a-zA-Z_]+/,

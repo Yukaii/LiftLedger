@@ -34,7 +34,7 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
 
   function safeGetText(node, index) {
     if (node.children.length > index) {
-      return node.children[index].text;
+      return node.children[index].text.trim();
     }
     debug(`Child at index ${index} not found in node type: ${node.type}`);
     return '';
@@ -155,4 +155,4 @@ const input = `
 `;
 
 console.log(formatLiftLedger(input)); // Uses default indentation
-console.log(formatLiftLedger(input, 0)); // Uses 4 spaces for indentation
+console.log(formatLiftLedger(input, 4));

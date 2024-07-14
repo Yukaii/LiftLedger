@@ -1,10 +1,8 @@
+// liftledger-formatter.js
 const Parser = require('tree-sitter');
 const LiftLedger = require('tree-sitter-liftledger');
 
-const DEBUG = false; // Set this to true to enable debug logging
-const DEFAULT_INDENT = 2; // Default indentation spaces
-
-function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
+function formatLiftLedger(input, indentSize = 2) {
   const parser = new Parser();
   parser.setLanguage(LiftLedger);
 
@@ -14,12 +12,6 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
   let output = '';
   let currentIndentation = 0;
   let maxNameLength = 0;
-
-  function debug(message) {
-    if (DEBUG) {
-      console.log(message);
-    }
-  }
 
   function indent() {
     currentIndentation += indentSize;
@@ -37,7 +29,6 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
     if (node.children.length > index) {
       return node.children[index].text.trim();
     }
-    debug(`Child at index ${index} not found in node type: ${node.type}`);
     return '';
   }
 
@@ -62,7 +53,6 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
   }
 
   function formatWithAlignment(node) {
-    debug('Processing node: ' + node.type);
     switch (node.type) {
       case 'source_file':
         node.children.forEach(formatWithAlignment);
@@ -143,46 +133,13 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
         node.children.slice(2).forEach(formatWithAlignment);
         dedent();
         break;
-
-      default:
-        debug('Unknown node type: ' + node.type);
     }
   }
 
-  // First pass: find max name length
   findMaxNameLength(root);
-
-  // Second pass: format with alignment
   formatWithAlignment(root);
 
   return output;
 }
 
-// Example usage
-const input = `
-@template Leg Day
-    Squat:      100kg 5x3 @RPE8
-    Deadlift:   120kg 5x3 @RPE7
-    Leg Press:  150kg 10x3
-    Calf Raises: 50kg 15x4
-@end-template
-
-2023-03-01 * Leg Day
-    Squat:      100kg 5/5/4 @RPE8 "Felt tired on last set"
-    Deadlift:   120kg 5/5/3 @RPE7 "Lower back tight, stopped early"
-    Leg Press:  150kg 10/10/8 "Fatigue on last set"
-    Calf Raises: 50kg 15x4
-
-2023-03-05 # Measurements
-    Weight:   75kg
-    Body Fat: 15%
-    Chest:    100cm
-    Waist:    80cm
-
-2023-03-07 ^ PR
-    Squat:    1RM 140kg
-    Deadlift: 1RM 160kg
-`;
-
-console.log(formatLiftLedger(input)); // Uses default indentation
-console.log(formatLiftLedger(input, 4)); // Uses 4 spaces for indentation
+module.exports = formatLiftLedger;

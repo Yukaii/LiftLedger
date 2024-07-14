@@ -148,7 +148,7 @@
     },
     "exercise_name": {
       "type": "PATTERN",
-      "value": "[^\\]]+"
+      "value": "[^\\]:]+"
     },
     "attribute": {
       "type": "SEQ",

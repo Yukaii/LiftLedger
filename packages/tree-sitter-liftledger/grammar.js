@@ -48,7 +48,7 @@ module.exports = grammar({
       repeat($.attribute),
     ),
 
-    exercise_name: $ => /[^\]]+/,
+    exercise_name: $ => /[^\]:]+/,
 
     attribute: $ => seq(
       $.attribute_name,

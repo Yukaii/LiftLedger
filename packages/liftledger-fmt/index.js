@@ -13,6 +13,7 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
 
   let output = '';
   let currentIndentation = 0;
+  let maxNameLength = 0;
 
   function debug(message) {
     if (DEBUG) {
@@ -40,65 +41,84 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
     return '';
   }
 
-  function traverse(node) {
+  function findMaxNameLength(node) {
+    switch (node.type) {
+      case 'source_file':
+      case 'template_block':
+      case 'log_entry':
+      case 'measurement_entry':
+      case 'pr_entry':
+      case 'exercises_block':
+        node.children.forEach(findMaxNameLength);
+        break;
+      case 'template_exercise':
+      case 'logged_exercise':
+      case 'measurement':
+      case 'pr_record':
+      case 'attribute':
+        maxNameLength = Math.max(maxNameLength, safeGetText(node, 0).length);
+        break;
+    }
+  }
+
+  function formatWithAlignment(node) {
     debug('Processing node: ' + node.type);
     switch (node.type) {
       case 'source_file':
-        node.children.forEach(child => traverse(child));
+        node.children.forEach(formatWithAlignment);
         break;
 
       case 'template_block':
         output += '@template ' + safeGetText(node, 1) + '\n';
         indent();
-        node.children.slice(2, -1).forEach(child => traverse(child));
+        node.children.slice(2, -1).forEach(formatWithAlignment);
         dedent();
         output += '@end-template\n\n';
         break;
 
       case 'template_exercise':
-        output += getIndent() + safeGetText(node, 0) + ':';
-        output += safeGetText(node, 2) + '\n';
+      case 'logged_exercise':
+      case 'measurement':
+      case 'pr_record':
+      case 'attribute':
+        const name = safeGetText(node, 0);
+        const padding = ' '.repeat(maxNameLength - name.length);
+        output += getIndent() + name + padding + ': ';
+        if (node.type === 'template_exercise' || node.type === 'logged_exercise') {
+          output += safeGetText(node, 2);
+          if (node.children.length > 3) {
+            output += ' ' + safeGetText(node, 3);
+          }
+        } else if (node.type === 'pr_record') {
+          output += safeGetText(node, 2) + ' ' + safeGetText(node, 3);
+        } else {
+          output += safeGetText(node, 2);
+        }
+        output += '\n';
         break;
 
       case 'log_entry':
         output += safeGetText(node, 0) + ' * ' + safeGetText(node, 2) + '\n';
         indent();
-        node.children.slice(3).forEach(child => traverse(child));
+        node.children.slice(3).forEach(formatWithAlignment);
         dedent();
-        output += '\n';
-        break;
-
-      case 'logged_exercise':
-        output += getIndent() + safeGetText(node, 0) + ':';
-        output += safeGetText(node, 2);
-        if (node.children.length > 3) {
-          output += ' ' + safeGetText(node, 3);
-        }
         output += '\n';
         break;
 
       case 'measurement_entry':
         output += safeGetText(node, 0) + ' # Measurements\n';
         indent();
-        node.children.slice(3).forEach(child => traverse(child));
+        node.children.slice(3).forEach(formatWithAlignment);
         dedent();
         output += '\n';
-        break;
-
-      case 'measurement':
-        output += getIndent() + safeGetText(node, 0) + ': ' + safeGetText(node, 2) + '\n';
         break;
 
       case 'pr_entry':
         output += safeGetText(node, 0) + ' ^ PR\n';
         indent();
-        node.children.slice(3).forEach(child => traverse(child));
+        node.children.slice(3).forEach(formatWithAlignment);
         dedent();
         output += '\n';
-        break;
-
-      case 'pr_record':
-        output += getIndent() + safeGetText(node, 0) + ': ' + safeGetText(node, 2) + ' ' + safeGetText(node, 3) + '\n';
         break;
 
       case 'comment':
@@ -112,7 +132,7 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
       case 'exercises_block':
         output += '@exercises\n';
         indent();
-        node.children.slice(1, -1).forEach(child => traverse(child));
+        node.children.slice(1, -1).forEach(formatWithAlignment);
         dedent();
         output += '@end-exercises\n\n';
         break;
@@ -120,12 +140,8 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
       case 'exercise':
         output += getIndent() + '[' + safeGetText(node, 0) + ']\n';
         indent();
-        node.children.slice(2).forEach(child => traverse(child));
+        node.children.slice(2).forEach(formatWithAlignment);
         dedent();
-        break;
-
-      case 'attribute':
-        output += getIndent() + safeGetText(node, 0) + ': ' + safeGetText(node, 2) + '\n';
         break;
 
       default:
@@ -133,7 +149,12 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
     }
   }
 
-  traverse(root);
+  // First pass: find max name length
+  findMaxNameLength(root);
+
+  // Second pass: format with alignment
+  formatWithAlignment(root);
+
   return output;
 }
 
@@ -141,18 +162,27 @@ function formatLiftLedger(input, indentSize = DEFAULT_INDENT) {
 const input = `
 @template Leg Day
     Squat:      100kg 5x3 @RPE8
+    Deadlift:   120kg 5x3 @RPE7
+    Leg Press:  150kg 10x3
+    Calf Raises: 50kg 15x4
 @end-template
 
 2023-03-01 * Leg Day
     Squat:      100kg 5/5/4 @RPE8 "Felt tired on last set"
+    Deadlift:   120kg 5/5/3 @RPE7 "Lower back tight, stopped early"
+    Leg Press:  150kg 10/10/8 "Fatigue on last set"
+    Calf Raises: 50kg 15x4
 
 2023-03-05 # Measurements
     Weight:   75kg
     Body Fat: 15%
+    Chest:    100cm
+    Waist:    80cm
 
 2023-03-07 ^ PR
     Squat:    1RM 140kg
+    Deadlift: 1RM 160kg
 `;
 
 console.log(formatLiftLedger(input)); // Uses default indentation
-console.log(formatLiftLedger(input, 4));
+console.log(formatLiftLedger(input, 4)); // Uses 4 spaces for indentation

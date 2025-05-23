@@ -16,7 +16,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          cache: 'npm'
+          cache: 'pnpm'
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: false
       
       - name: Install node-gyp tools
         run: |
@@ -24,10 +30,10 @@ jobs:
           sudo apt-get install -y build-essential
       
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
       
       - name: Build tree-sitter grammar
-        run: cd packages/tree-sitter-liftledger && npm run build
+        run: cd packages/tree-sitter-liftledger && pnpm run build
       
       - name: Run tests
-        run: npm test
+        run: pnpm test

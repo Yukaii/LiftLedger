@@ -21,8 +21,10 @@ describe('LiftLedger Formatter', () => {
       return input.replace('@exercises', '@exercises\n  ').replace('@end-exercises', '\n@end-exercises');
     };
     
-    const input = '@exercises[Squat]@end-exercises';
-    const expected = '@exercises\n  [Squat]\n@end-exercises';
+    const input = `@exercises[Squat]@end-exercises`;
+    const expected = `@exercises
+  [Squat]
+@end-exercises`;
     
     expect(formatLiftLedger(input)).toBe(expected);
   });

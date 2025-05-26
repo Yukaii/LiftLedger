@@ -15,7 +15,7 @@ It's inspired by [beancount](https://github.com/beancount/beancount). Co-designe
 
 ## Basic Format
 
-```
+```lfl
 ; Lift Ledger Format Example
 
 @exercises

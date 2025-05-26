@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       
+      - name: Install tree-sitter CLI globally
+        run: npm install -g tree-sitter-cli@0.22.6
+      
       - name: Build tree-sitter grammar
         run: cd packages/tree-sitter-liftledger && pnpm run build
       

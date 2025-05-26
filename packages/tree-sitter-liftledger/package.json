@@ -40,11 +40,11 @@
   "scripts": {
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip",
-    "build": "tree-sitter generate --no-bindings",
-    "build-wasm": "tree-sitter build --wasm",
-    "test": "tree-sitter test && jest",
-    "parse": "tree-sitter parse",
-    "watch:playground": "nodemon -w ./grammar.js --exec 'npm run build && npm run build-wasm && tree-sitter playground -q'",
+    "build": "npx tree-sitter generate --no-bindings",
+    "build-wasm": "npx tree-sitter build --wasm",
+    "test": "npx tree-sitter test && jest",
+    "parse": "npx tree-sitter parse",
+    "watch:playground": "nodemon -w ./grammar.js --exec 'npm run build && npm run build-wasm && npx tree-sitter playground -q'",
     "watch:prebuildify": "nodemon -w ./grammar.js --exec 'npm run prebuildify'"
   },
   "tree-sitter": [

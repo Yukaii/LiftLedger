@@ -1,0 +1,26 @@
+{
+  "name": "liftledger-linter",
+  "version": "0.1.0",
+  "description": "Linter for the LiftLedger format",
+  "main": "index.js",
+  "bin": {
+    "liftledger-linter": "./cli.js"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "liftledger",
+    "linter",
+    "tree-sitter"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tree-sitter": "^0.21.0",
+    "tree-sitter-liftledger": "file:../tree-sitter-liftledger"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}

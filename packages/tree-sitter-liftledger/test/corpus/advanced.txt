@@ -1,0 +1,168 @@
+=====================================
+Time-based exercises
+=====================================
+
+2023-01-01 * Test
+    Plank: BW 60s/45s/30s
+    Hold: BW 90s
+
+-------------------------------------
+
+(source_file
+  (log_entry
+    (date)
+    (workout_name)
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets)))
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets)))))
+
+=====================================
+Flexible measurement titles
+=====================================
+
+2023-01-01 # Detailed Measurements
+    Weight: 75kg
+    Body Fat: 15%
+
+-------------------------------------
+
+(source_file
+  (measurement_entry
+    (date)
+    (measurement_title)
+    (measurement
+      (measurement_name)
+      (measurement_value))
+    (measurement
+      (measurement_name)
+      (measurement_value))))
+
+=====================================
+Flexible PR titles
+=====================================
+
+2023-01-01 ^ Multiple PRs
+    Squat: 1RM 140kg
+    Bench: 3RM 100kg
+
+-------------------------------------
+
+(source_file
+  (pr_entry
+    (date)
+    (pr_title)
+    (pr_record
+      (exercise_name)
+      (pr_type)
+      (weight))
+    (pr_record
+      (exercise_name)
+      (pr_type)
+      (weight))))
+
+=====================================
+Bodyweight exercises
+=====================================
+
+2023-01-01 * Test
+    Exercise: BW 10x3
+
+-------------------------------------
+
+(source_file
+  (log_entry
+    (date)
+    (workout_name)
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets
+          (reps)
+          (sets))))))
+
+=====================================
+Decimal weights
+=====================================
+
+2023-01-01 * Test
+    Exercise: 102.5kg 5x3
+
+-------------------------------------
+
+(source_file
+  (log_entry
+    (date)
+    (workout_name)
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets
+          (reps)
+          (sets))))))
+
+=====================================
+Exercise notes with complex patterns
+=====================================
+
+2023-01-01 * Test
+    Exercise: 100kg 5/4/3/2/1 @RPE8 "Pyramid down set"
+
+-------------------------------------
+
+(source_file
+  (log_entry
+    (date)
+    (workout_name)
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets)
+        (rpe))
+      (exercise_note))))
+
+=====================================
+Multiple exercises in workout
+=====================================
+
+2023-01-01 * Test Workout
+    Squat: 100kg 5x3 @RPE8
+    Deadlift: 120kg 3x5
+    Bench: 80kg 8/6/4/2 @RPE7
+
+-------------------------------------
+
+(source_file
+  (log_entry
+    (date)
+    (workout_name)
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets
+          (reps)
+          (sets))
+        (rpe)))
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets
+          (reps)
+          (sets))))
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets)
+        (rpe)))))

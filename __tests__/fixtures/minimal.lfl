@@ -1,0 +1,16 @@
+; Minimal valid LiftLedger file for basic testing
+
+@exercises
+    [Push-up]
+    id: PU001
+    description: Basic bodyweight push-up
+@end-exercises
+
+2023-01-01 * Simple Workout
+    Push-up: BW 10x3
+
+2023-01-02 # Measurements
+    Weight: 70kg
+
+2023-01-03 ^ PR
+    Push-up: 1RM BW

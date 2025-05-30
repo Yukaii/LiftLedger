@@ -96,7 +96,9 @@ module.exports = grammar({
 
     reps_sets: $ => choice(
       seq($.reps, 'x', $.sets),
-      /\d+\/\d+\/\d+/
+      /\d+(?:\/\d+)+/,  // Variable rep patterns like 5/5/5, 5/4/3/2, etc.
+      /\d+s(?:\/\d+s)+/, // Time-based patterns like 60s/45s/30s
+      /\d+s/            // Single time value like 90s
     ),
 
     reps: $ => /\d+/,
@@ -131,10 +133,12 @@ module.exports = grammar({
     measurement_entry: $ => seq(
       $.date,
       '#',
-      'Measurements',
+      $.measurement_title,
       $._line_break,
       repeat($.measurement),
     ),
+
+    measurement_title: $ => /[^\n\r]+/,
 
     measurement: $ => seq(
       $.measurement_name,
@@ -146,10 +150,12 @@ module.exports = grammar({
     pr_entry: $ => seq(
       $.date,
       '^',
-      'PR',
+      $.pr_title,
       $._line_break,
       repeat($.pr_record),
     ),
+
+    pr_title: $ => /[^\n\r]+/,
 
     pr_record: $ => seq(
       $.exercise_name,

@@ -1,0 +1,98 @@
+; Complete LiftLedger Example with all features
+; This file tests comprehensive parsing and formatting
+
+@exercises
+    [Squat]
+    id:          SQ001
+    description: Barbell back squat targeting quads, glutes, and core
+    tutorial:    https://example.com/squat-tutorial
+    image:       squat.jpg
+    category:    Lower Body
+    
+    [Deadlift]
+    id:          DL001
+    description: Conventional deadlift for posterior chain development
+    tutorial:    https://example.com/deadlift-tutorial
+    image:       deadlift.jpg
+    category:    Full Body
+    
+    [Bench Press]
+    id:          BP001
+    description: Barbell bench press for chest and triceps
+    tutorial:    https://example.com/bench-tutorial
+    image:       bench.jpg
+    category:    Upper Body
+    
+    [Pull-ups]
+    id:          PU001
+    description: Bodyweight pull-ups for back and biceps
+    tutorial:    https://example.com/pullup-tutorial
+    image:       pullup.jpg
+    category:    Upper Body
+@end-exercises
+
+@template Push Day
+    Bench Press:    80kg 5x5 @RPE7
+    Overhead Press: 50kg 5x5 @RPE8
+    Dips:          BW 8x3 @RPE6
+    Tricep Dips:   BW 10x3
+@end-template
+
+@template Pull Day
+    Deadlift:      120kg 5x3 @RPE8
+    Pull-ups:      BW 8x3 @RPE7
+    Barbell Rows:  70kg 8x4 @RPE6
+    Face Pulls:    15kg 15x3
+@end-template
+
+@template Leg Day
+    Squat:         100kg 5x5 @RPE8
+    Romanian DL:   80kg 8x4 @RPE7
+    Leg Press:     150kg 12x3
+    Calf Raises:   60kg 15x4
+@end-template
+
+2023-03-01 * Push Day
+    Bench Press:    80kg 5/5/4/3/2 @RPE8 "Struggled on last two sets"
+    Overhead Press: 50kg 5/5/5/4/3 @RPE9 "Shoulders felt tight"
+    Dips:          BW 8/8/6 @RPE7 "Good form maintained"
+    Tricep Dips:   BW 10/9/8 "Fatigue kicked in"
+
+2023-03-03 * Pull Day
+    Deadlift:      120kg 5/5/5 @RPE8 "Perfect form today"
+    Pull-ups:      BW 8/7/6 @RPE8 "Need to work on endurance"
+    Barbell Rows:  70kg 8x4 @RPE6
+    Face Pulls:    15kg 15x3
+
+2023-03-05 * Leg Day
+    Squat:         100kg 5/5/5/4/4 @RPE9 "Depth was good throughout"
+    Romanian DL:   80kg 8x4 @RPE7
+    Leg Press:     150kg 12/12/10 "Machine felt different today"
+    Calf Raises:   60kg 15x4
+
+2023-03-07 # Measurements
+    Weight:        75.2kg
+    Body Fat:      14.8%
+    Chest:         101cm
+    Waist:         79cm
+    Arms:          35cm
+    Thighs:        58cm
+
+2023-03-10 ^ PR
+    Squat:         1RM 145kg
+    Bench Press:   1RM 95kg
+    Deadlift:      1RM 165kg
+
+2023-03-12 * Upper/Lower Split
+    Bench Press:   85kg 3x5 @RPE7
+    Squat:         105kg 3x5 @RPE8 "New weight felt good"
+    Pull-ups:      BW 10/8/7 @RPE8
+    Romanian DL:   85kg 6x3 @RPE7 "Focused on form"
+
+; Include additional workout data
+@include "supplemental-exercises.lfl"
+
+2023-03-15 # Measurements
+    Weight:        75.8kg
+    Body Fat:      14.5%
+    Muscle Mass:   64.2kg

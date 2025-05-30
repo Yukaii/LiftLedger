@@ -1,0 +1,119 @@
+=====================================
+Basic date and workout parsing
+=====================================
+
+2023-01-01 * Simple Workout
+    Exercise: 100kg 5x3
+
+-------------------------------------
+
+(source_file
+  (log_entry
+    (date)
+    (workout_name)
+    (logged_exercise
+      (logged_exercise_name)
+      (exercise_details
+        (weight)
+        (reps_sets
+          (reps)
+          (sets))))))
+
+=====================================
+Exercise block parsing
+=====================================
+
+@exercises
+    [Push-up]
+    id: PU001
+    description: Basic push-up
+@end-exercises
+
+-------------------------------------
+
+(source_file
+  (exercises_block
+    (exercises_start)
+    (exercise
+      (exercise_name)
+      (attribute
+        (attribute_name)
+        (attribute_value))
+      (attribute
+        (attribute_name)
+        (attribute_value)))))
+
+=====================================
+Template parsing
+=====================================
+
+@template Test Template
+    Exercise: 100kg 5x3 @RPE8
+@end-template
+
+-------------------------------------
+
+(source_file
+  (template_block
+    (template_name)
+    (template_exercise
+      (template_exercise_name)
+      (template_exercise_details
+        (weight)
+        (reps_sets
+          (reps)
+          (sets))
+        (rpe)))))
+
+=====================================
+Measurement entry parsing
+=====================================
+
+2023-01-01 # Measurements
+    Weight: 75kg
+    Body Fat: 15%
+
+-------------------------------------
+
+(source_file
+  (measurement_entry
+    (date)
+    (measurement_title)
+    (measurement
+      (measurement_name)
+      (measurement_value))
+    (measurement
+      (measurement_name)
+      (measurement_value))))
+
+=====================================
+PR entry parsing
+=====================================
+
+2023-01-01 ^ PR
+    Squat: 1RM 140kg
+
+-------------------------------------
+
+(source_file
+  (pr_entry
+    (date)
+    (pr_title)
+    (pr_record
+      (exercise_name)
+      (pr_type)
+      (weight))))
+
+=====================================
+Comments and includes
+=====================================
+
+; This is a comment
+@include "file.lfl"
+
+-------------------------------------
+
+(source_file
+  (comment)
+  (include
+    (file_path)))

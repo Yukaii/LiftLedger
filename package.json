@@ -5,9 +5,14 @@
   "main": "index.js",
   "scripts": {
     "watch": "pnpm run --filter=tree-sitter* \"/^watch:.*/\"",
-    "build": "pnpm run --filter=* build"
+    "build": "pnpm run --filter=* build",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "tree-sitter": "^0.22.4"
+  }
 }

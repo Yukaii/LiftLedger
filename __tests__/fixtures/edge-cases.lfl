@@ -1,0 +1,79 @@
+; Edge case testing for LiftLedger format
+; Tests various edge cases and complex scenarios
+
+@exercises
+    [Bulgarian Split Squat]
+    id:          BSS001
+    description: Single-leg squat variation with rear foot elevated
+    tutorial:    https://example.com/bulgarian-split-squat
+    image:       bulgarian-split-squat.jpg
+    difficulty:  Intermediate
+    equipment:   Dumbbells, Bench
+    
+    [Weighted Chin-ups]
+    id:          WCU001
+    description: Chin-ups with additional weight for strength building
+    tutorial:    https://example.com/weighted-chinups
+    image:       weighted-chinups.jpg
+    difficulty:  Advanced
+@end-exercises
+
+@template Challenging Upper
+    Weighted Chin-ups:  10kg 3x6 @RPE9
+    Handstand Pushups:  BW 3x5 @RPE8
+    Ring Muscle-ups:    BW 3x3 @RPE9
+@end-template
+
+; Test various number formats and edge cases
+2023-04-01 * Complex Sets Day
+    Bulgarian Split Squat:  20kg 12/10/8/6 @RPE8 "Each leg, decreasing reps"
+    Weighted Chin-ups:      5kg 6/5/4 @RPE9 "Heavy but controlled"
+    Handstand Pushups:      BW 5/4/3/2/1 @RPE9 "Pyramid down set"
+    Ring Dips:             BW 10x5 @RPE7
+    Pistol Squats:         BW 3/3/2/2 @RPE8 "Each leg alternating"
+
+2023-04-03 * Bodyweight Focus
+    Pull-ups:              BW 15/12/10/8/6 @RPE8 "Descending ladder"
+    Push-ups:              BW 25/20/15/10/5 @RPE7 "High volume day"
+    Dips:                  BW 12x4 @RPE7
+    Plank:                 BW 60s/45s/30s "Time-based exercise"
+
+2023-04-05 * Decimal Weights
+    Squat:                 102.5kg 5x3 @RPE8
+    Bench Press:           87.5kg 6x4 @RPE7
+    Deadlift:              127.5kg 3x5 @RPE9 "New PR territory"
+    Overhead Press:        52.5kg 5x5 @RPE8
+
+; Test measurements with various units and decimals
+2023-04-07 # Detailed Measurements
+    Weight:                76.4kg
+    Body Fat:              13.2%
+    Muscle Mass:           66.3kg
+    BMI:                   22.1
+    Chest:                 102.5cm
+    Waist:                 78.2cm
+    Bicep:                 36.8cm
+    Thigh:                 59.1cm
+    Neck:                  38.5cm
+
+; Test PRs with different rep maxes
+2023-04-10 ^ Multiple PRs
+    Squat:                 3RM 130kg
+    Bench Press:           5RM 85kg
+    Deadlift:              2RM 150kg
+    Overhead Press:        8RM 45kg
+
+; Test mixed workout with all features
+2023-04-12 * Mixed Intensity
+    Squat:                 100kg 5/5/5 @RPE7 "Warmup sets"
+    Bulgarian Split Squat: 15kg 8/8/6/6 @RPE8 "Each leg, felt the burn"
+    Bench Press:           80kg 8/6/4 @RPE8 "Reverse pyramid"
+    Weighted Chin-ups:     7.5kg 5/4/3 @RPE9 "Strength focus"
+    Plank:                 BW 90s "Core finisher"
+
+2023-04-15 # Recovery Metrics
+    Weight:                76.1kg
+    Sleep Quality:         8/10
+    Energy Level:          7/10
+    Soreness:              3/10
+    Motivation:            9/10

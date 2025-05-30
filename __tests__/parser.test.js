@@ -11,7 +11,7 @@ describe('LiftLedger Tree-sitter Parser', () => {
       const grammarDir = path.join(__dirname, '..', 'packages', 'tree-sitter-liftledger');
       
       // Run tree-sitter test to verify the parser works
-      const result = execSync('npx tree-sitter test', { 
+      const result = execSync('pnpm exec tree-sitter test', { 
         cwd: grammarDir, 
         encoding: 'utf8',
         timeout: 30000 

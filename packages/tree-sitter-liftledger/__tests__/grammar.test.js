@@ -8,7 +8,7 @@ describe('LiftLedger Grammar Tree-sitter Tests', () => {
   test('tree-sitter corpus tests pass', () => {
     try {
       // Run tree-sitter test command and capture output
-      const result = execSync('npx tree-sitter test', { 
+      const result = execSync('tree-sitter test', { 
         cwd: grammarDir, 
         encoding: 'utf8',
         timeout: 30000 
@@ -38,7 +38,7 @@ describe('LiftLedger Grammar Tree-sitter Tests', () => {
         try {
           // Use absolute path for tree-sitter CLI
           const absolutePath = path.resolve(filePath);
-          const result = execSync(`npx tree-sitter parse "${absolutePath}"`, { 
+          const result = execSync(`tree-sitter parse "${absolutePath}"`, { 
             cwd: grammarDir,
             encoding: 'utf8',
             timeout: 10000
@@ -95,7 +95,7 @@ describe('LiftLedger Grammar Tree-sitter Tests', () => {
         const tempFile = `/tmp/test-${Date.now()}.lfl`;
         fs.writeFileSync(tempFile, testCase.input);
         
-        const result = execSync(`npx tree-sitter parse "${tempFile}"`, { 
+        const result = execSync(`tree-sitter parse "${tempFile}"`, { 
           cwd: grammarDir,
           encoding: 'utf8',
           timeout: 5000
@@ -166,7 +166,7 @@ describe('LiftLedger Grammar Tree-sitter Tests', () => {
         const tempFile = `/tmp/test-complex-${Date.now()}.lfl`;
         fs.writeFileSync(tempFile, example.input);
         
-        const result = execSync(`npx tree-sitter parse "${tempFile}"`, { 
+        const result = execSync(`tree-sitter parse "${tempFile}"`, { 
           cwd: grammarDir,
           encoding: 'utf8',
           timeout: 5000
@@ -207,7 +207,7 @@ describe('LiftLedger Grammar Tree-sitter Tests', () => {
         const tempFile = `/tmp/test-invalid-${Date.now()}.lfl`;
         fs.writeFileSync(tempFile, example.input);
         
-        const result = execSync(`npx tree-sitter parse "${tempFile}"`, { 
+        const result = execSync(`tree-sitter parse "${tempFile}"`, { 
           cwd: grammarDir,
           encoding: 'utf8',
           timeout: 5000

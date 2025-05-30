@@ -11,7 +11,7 @@ describe('LiftLedger Tree-sitter Parser', () => {
       const grammarDir = path.join(__dirname, '..', 'packages', 'tree-sitter-liftledger');
       
       // Run tree-sitter test to verify the parser works
-      const result = execSync('pnpm exec tree-sitter test', { 
+      const result = execSync('tree-sitter test', { 
         cwd: grammarDir, 
         encoding: 'utf8',
         timeout: 30000 
@@ -41,7 +41,7 @@ describe('LiftLedger Tree-sitter Parser', () => {
       if (fs.existsSync(filePath)) {
         try {
           const absolutePath = path.resolve(filePath);
-          const result = execSync(`npx tree-sitter parse "${absolutePath}"`, { 
+          const result = execSync(`tree-sitter parse "${absolutePath}"`, { 
             cwd: grammarDir,
             encoding: 'utf8',
             timeout: 10000
@@ -67,7 +67,7 @@ describe('LiftLedger Tree-sitter Parser', () => {
       if (fs.existsSync(filePath)) {
         try {
           const absolutePath = path.resolve(filePath);
-          const result = execSync(`npx tree-sitter parse "${absolutePath}"`, { 
+          const result = execSync(`tree-sitter parse "${absolutePath}"`, { 
             cwd: grammarDir,
             encoding: 'utf8',
             timeout: 10000
@@ -119,7 +119,7 @@ describe('LiftLedger Tree-sitter Parser', () => {
         const tempFile = `/tmp/test-${Date.now()}-${Math.random()}.lfl`;
         fs.writeFileSync(tempFile, testCase.content);
         
-        const result = execSync(`npx tree-sitter parse "${tempFile}"`, { 
+        const result = execSync(`tree-sitter parse "${tempFile}"`, { 
           cwd: grammarDir,
           encoding: 'utf8',
           timeout: 5000

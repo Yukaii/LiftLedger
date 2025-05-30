@@ -319,7 +319,15 @@
         },
         {
           "type": "PATTERN",
-          "value": "\\d+\\/\\d+\\/\\d+"
+          "value": "\\d+(?:\\/\\d+)+"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d+s(?:\\/\\d+s)+"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d+s"
         }
       ]
     },
@@ -438,8 +446,8 @@
           "value": "#"
         },
         {
-          "type": "STRING",
-          "value": "Measurements"
+          "type": "SYMBOL",
+          "name": "measurement_title"
         },
         {
           "type": "SYMBOL",
@@ -453,6 +461,10 @@
           }
         }
       ]
+    },
+    "measurement_title": {
+      "type": "PATTERN",
+      "value": "[^\\n\\r]+"
     },
     "measurement": {
       "type": "SEQ",
@@ -487,8 +499,8 @@
           "value": "^"
         },
         {
-          "type": "STRING",
-          "value": "PR"
+          "type": "SYMBOL",
+          "name": "pr_title"
         },
         {
           "type": "SYMBOL",
@@ -502,6 +514,10 @@
           }
         }
       ]
+    },
+    "pr_title": {
+      "type": "PATTERN",
+      "value": "[^\\n\\r]+"
     },
     "pr_record": {
       "type": "SEQ",

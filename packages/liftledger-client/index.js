@@ -2,13 +2,20 @@ const fs = require('fs')
 const Parser = require('tree-sitter')
 const LiftLedger = require('tree-sitter-liftledger')
 
+// Function to create a fresh parser instance each time
+function createParser() {
+  const parser = new Parser();
+  parser.setLanguage(LiftLedger);
+  return parser;
+}
+
 /**
  * LiftLedgerClient
  * Parse, transform, and write LiftLedger files on the fly.
  */
 class LiftLedgerClient {
   constructor() {
-    // No longer store parser as instance variable to avoid shared state issues
+    // Use shared parser instance
   }
 
   /**
@@ -17,9 +24,8 @@ class LiftLedgerClient {
    * @returns {Parser.Tree}
    */
   parseText(text) {
-    const parser = new Parser()
-    parser.setLanguage(LiftLedger)
-    return parser.parse(text)
+    const parser = createParser();
+    return parser.parse(text);
   }
 
   /**

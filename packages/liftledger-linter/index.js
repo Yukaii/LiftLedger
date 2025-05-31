@@ -1,9 +1,15 @@
 const Parser = require('tree-sitter');
 const LiftLedger = require('tree-sitter-liftledger');
 
-function lint(sourceCode) {
+// Function to create a fresh parser instance each time
+function createParser() {
   const parser = new Parser();
   parser.setLanguage(LiftLedger);
+  return parser;
+}
+
+function lint(sourceCode) {
+  const parser = createParser();
   const tree = parser.parse(sourceCode);
   const errors = [];
 

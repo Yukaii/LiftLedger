@@ -8,6 +8,14 @@ describe('LiftLedgerClient', () => {
   test('parseText returns a tree with source_file root', () => {
     const text = '2025-01-01 * Test Workout\n    Exercise: 100kg 5x5'
     const tree = client.parseText(text)
+    // Debug output for diagnosis
+    if (!tree || !tree.rootNode) {
+      throw new Error('parseText did not return a valid tree or rootNode')
+    }
+    // eslint-disable-next-line no-console
+    console.log('DEBUG rootNode.type:', tree.rootNode.type)
+    // eslint-disable-next-line no-console
+    console.log('DEBUG rootNode.children:', tree.rootNode.children.map(c => c.type))
     expect(tree).toBeDefined()
     expect(tree.rootNode.type).toBe('source_file')
   })

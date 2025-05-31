@@ -8,8 +8,7 @@ const LiftLedger = require('tree-sitter-liftledger')
  */
 class LiftLedgerClient {
   constructor() {
-    this.parser = new Parser()
-    this.parser.setLanguage(LiftLedger)
+    // No longer store parser as instance variable to avoid shared state issues
   }
 
   /**
@@ -18,7 +17,9 @@ class LiftLedgerClient {
    * @returns {Parser.Tree}
    */
   parseText(text) {
-    return this.parser.parse(text)
+    const parser = new Parser()
+    parser.setLanguage(LiftLedger)
+    return parser.parse(text)
   }
 
   /**

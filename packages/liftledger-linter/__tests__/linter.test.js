@@ -37,7 +37,7 @@ Bench Press
 
   it('should not report a missing date error for a file with only comments or whitespace', () => {
     const sourceCode = `
-// This is a comment
+; This is a comment
     
 `;
     const diagnostics = lint(sourceCode);

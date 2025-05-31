@@ -1,26 +1,26 @@
 const Parser = require('tree-sitter');
 const LiftLedger = require('tree-sitter-liftledger');
 
-const parser = new Parser();
-parser.setLanguage(LiftLedger);
-
 function lint(sourceCode) {
+  const parser = new Parser();
+  parser.setLanguage(LiftLedger);
   const tree = parser.parse(sourceCode);
   const errors = [];
 
-  // Debug: Log root node children types for test diagnosis
-  if (process.env.LIFTLEDGER_LINTER_DEBUG === '1') {
-    console.log('Root node children types:', tree.rootNode.children.map(c => c.type));
+  if (!tree || !tree.rootNode) {
+    return [];
   }
 
-  // Placeholder for linting rules
-  // Example: Check if a date is present
+
+
+  // Check if a date is present
   let hasDate = false;
   function traverse(node) {
+    if (!node) return;
     if (node.type === 'date') {
       hasDate = true;
     }
-    for (let i = 0; i < node.childCount; i++) {
+    for (let i = 0; i < (node.childCount || 0); i++) {
       traverse(node.child(i));
     }
   }
@@ -70,12 +70,12 @@ function lint(sourceCode) {
     const hasNonTrivialError = tree.rootNode.children.some(child => {
       const text = child.text.trim();
       // Ignore empty, whitespace, or comment-only lines
-      return text.length > 0 && !/^\/\//.test(text);
+      return text.length > 0 && !/^;/.test(text);
     });
     if (hasNonTrivialError) {
       const errorNode = tree.rootNode.children.find(child => {
         const text = child.text.trim();
-        return text.length > 0 && !/^\/\//.test(text);
+        return text.length > 0 && !/^;/.test(text);
       }) || tree.rootNode.children[0];
       errors.push({
         message: 'LiftLedger entry should have a date.',

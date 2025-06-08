@@ -1,0 +1,33 @@
+{
+  "name": "liftledger-demo",
+  "version": "0.1.0",
+  "description": "Demo app showcasing LiftLedger linter with CodeMirror",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port 3000"
+  },
+  "dependencies": {
+    "liftledger-linter": "workspace:*",
+    "tree-sitter-liftledger": "workspace:*",
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/view": "^6.23.1",
+    "@codemirror/language": "^6.10.1",
+    "@codemirror/lint": "^6.5.0",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "codemirror": "^6.0.1"
+  },
+  "devDependencies": {
+    "vite": "^5.0.12"
+  },
+  "keywords": [
+    "liftledger",
+    "demo",
+    "codemirror",
+    "linter"
+  ],
+  "author": "",
+  "license": "ISC"
+}

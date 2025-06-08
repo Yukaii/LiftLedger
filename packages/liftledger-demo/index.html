@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiftLedger Demo - Live Linter with CodeMirror</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #2d3748;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .editor-container {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .editor-header {
+            background: #4a5568;
+            color: white;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+        }
+
+        .editor-content {
+            height: calc(100vh - 200px);
+        }
+
+        .diagnostics-panel {
+            width: 300px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .diagnostics-header {
+            background: #4a5568;
+            color: white;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+        }
+
+        .diagnostics-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .diagnostic-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+
+        .diagnostic-error {
+            background: #fed7d7;
+            border-left-color: #e53e3e;
+        }
+
+        .diagnostic-warning {
+            background: #fef5e7;
+            border-left-color: #dd6b20;
+        }
+
+        .diagnostic-info {
+            background: #ebf8ff;
+            border-left-color: #3182ce;
+        }
+
+        .diagnostic-message {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .diagnostic-location {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .no-diagnostics {
+            text-align: center;
+            color: #718096;
+            padding: 2rem;
+        }
+
+        .examples-section {
+            margin-top: 1rem;
+        }
+
+        .example-button {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .example-button:hover {
+            background: #3182ce;
+        }
+
+        .cm-editor {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LiftLedger Demo</h1>
+        <p>Live linting with CodeMirror - Type LiftLedger format and see diagnostics in real-time</p>
+    </div>
+
+    <div class="main">
+        <div class="editor-container">
+            <div class="editor-header">Editor</div>
+            <div class="editor-content" id="editor"></div>
+        </div>
+
+        <div class="diagnostics-panel">
+            <div class="diagnostics-header">Diagnostics</div>
+            <div class="diagnostics-content">
+                <div id="diagnostics-list"></div>
+                
+                <div class="examples-section">
+                    <h3 style="margin-bottom: 0.5rem; color: #4a5568;">Examples</h3>
+                    <button class="example-button" onclick="loadExample('basic')">Basic Workout</button>
+                    <button class="example-button" onclick="loadExample('complete')">Complete Example</button>
+                    <button class="example-button" onclick="loadExample('error')">Missing Date (Error)</button>
+                    <button class="example-button" onclick="loadExample('measurements')">Measurements</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

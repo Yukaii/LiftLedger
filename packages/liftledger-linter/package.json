@@ -9,7 +9,9 @@
     "liftledger-linter": "./cli.js"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "npm run build-wasm",
+    "build-wasm": "cd ../tree-sitter-liftledger && npm run build-wasm"
   },
   "files": [
     "index.js",

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "liftledger-linter": "workspace:*",
+    "liftledger-fmt": "workspace:*",
     "tree-sitter-liftledger": "workspace:*",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.23.1",

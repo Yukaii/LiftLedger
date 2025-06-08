@@ -4,10 +4,96 @@ import { basicSetup } from 'codemirror';
 import { linter, lintGutter } from '@codemirror/lint';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { StreamLanguage } from '@codemirror/language';
+import { initTreeSitter, lint, createCodeMirrorLinter } from 'liftledger-linter/browser.js';
 
-// Import the linter - we'll need to handle this carefully since it's a Node.js module
-// For now, we'll create a wrapper that works in the browser
-let liftLedgerLinter;
+// Browser-compatible formatter
+function formatLiftLedger(input, indentSize = 2) {
+  // Simple formatter that works without tree-sitter in the browser
+  const lines = input.split('\n');
+  const formatted = [];
+  let currentIndent = 0;
+  let inExerciseBlock = false;
+  let inTemplateBlock = false;
+  
+  // Remove empty lines at start and end
+  while (lines.length > 0 && !lines[0].trim()) {
+    lines.shift();
+  }
+  while (lines.length > 0 && !lines[lines.length - 1].trim()) {
+    lines.pop();
+  }
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    if (!line) {
+      // Empty lines
+      formatted.push('');
+      continue;
+    }
+    
+    if (line.startsWith(';')) {
+      // Comments - preserve but don't indent
+      formatted.push(line);
+      continue;
+    }
+    
+    if (line.startsWith('@exercises')) {
+      // Exercises block start
+      formatted.push(line);
+      currentIndent = indentSize;
+      inExerciseBlock = true;
+      continue;
+    }
+    
+    if (line.startsWith('@template')) {
+      // Template block start
+      formatted.push(line);
+      currentIndent = indentSize;
+      inTemplateBlock = true;
+      continue;
+    }
+    
+    if (line.startsWith('@end-')) {
+      // Block end
+      currentIndent = 0;
+      formatted.push(line);
+      inExerciseBlock = false;
+      inTemplateBlock = false;
+      
+      // Add empty line after block
+      if (i < lines.length - 1 && lines[i + 1].trim()) {
+        formatted.push('');
+      }
+      continue;
+    }
+    
+    if (line.startsWith('[') && line.endsWith(']') && inExerciseBlock) {
+      // Exercise definition in exercises block
+      formatted.push(' '.repeat(currentIndent) + line);
+      currentIndent = indentSize * 2;
+      continue;
+    }
+    
+    if (/^\d{4}-\d{2}-\d{2}/.test(line)) {
+      // Date entries
+      currentIndent = indentSize;
+      formatted.push(line);
+      continue;
+    }
+    
+    if (line.includes(':')) {
+      // Regular entries with colons
+      formatted.push(' '.repeat(currentIndent) + line);
+      continue;
+    }
+    
+    // Default case
+    formatted.push(' '.repeat(currentIndent) + line);
+  }
+  
+  return formatted.join('\n');
+}
 
 const liftLedgerLanguage = StreamLanguage.define({
   name: 'liftledger',
@@ -60,17 +146,6 @@ const liftLedgerLanguage = StreamLanguage.define({
   }
 });
 
-// Create a linter function that works with our Node.js linter
-const createLiftLedgerLinter = () => {
-  return linter(view => {
-    const doc = view.state.doc;
-    const text = doc.toString();
-    
-    // For now, return empty diagnostics since we need to set up the linter properly
-    // We'll implement this after setting up the build process
-    return [];
-  });
-};
 
 // Initialize the editor
 let editorView;
@@ -80,16 +155,16 @@ function initEditor() {
 ; Try typing a workout entry below
 
 2024-01-15 * Upper Body Workout
-    Bench Press: 80kg 5x3 @RPE8
-    Pull-ups: bodyweight 8/6/5
-    Overhead Press: 50kg 5x3`;
+  Bench Press: 80kg 5x3 @RPE8
+  Pull-ups: bodyweight 8/6/5
+  Overhead Press: 50kg 5x3`;
 
   const state = EditorState.create({
     doc: startDoc,
     extensions: [
       basicSetup,
       liftLedgerLanguage,
-      createLiftLedgerLinter(),
+      linter(createCodeMirrorLinter()),
       lintGutter(),
       oneDark,
       EditorView.updateListener.of(update => {
@@ -109,73 +184,9 @@ function initEditor() {
   updateDiagnostics(startDoc);
 }
 
-// Mock linter for browser demo (since we can't easily run Node.js tree-sitter in browser)
-function mockLint(sourceCode) {
-  const errors = [];
-  const lines = sourceCode.split('\n');
-  
-  // Check for date pattern
-  const hasDate = lines.some(line => /^\d{4}-\d{2}-\d{2}/.test(line.trim()));
-  
-  // Check if there's workout content that needs a date
-  const hasWorkoutContent = lines.some(line => {
-    const trimmed = line.trim();
-    return trimmed && 
-           !trimmed.startsWith(';') && 
-           !trimmed.startsWith('@') && 
-           !hasDate &&
-           (trimmed.includes(':') || trimmed.includes('kg') || trimmed.includes('lbs'));
-  });
-  
-  if (!hasDate && hasWorkoutContent) {
-    // Find first non-comment, non-empty line for error position
-    let errorLine = 0;
-    for (let i = 0; i < lines.length; i++) {
-      const trimmed = lines[i].trim();
-      if (trimmed && !trimmed.startsWith(';') && !trimmed.startsWith('@')) {
-        errorLine = i;
-        break;
-      }
-    }
-    
-    errors.push({
-      message: 'LiftLedger entry should have a date.',
-      line: errorLine,
-      severity: 'error'
-    });
-  }
-  
-  // Check for other common issues
-  lines.forEach((line, index) => {
-    const trimmed = line.trim();
-    
-    // Check for malformed exercise entries
-    if (trimmed.includes(':') && !trimmed.startsWith(';') && !trimmed.startsWith('@')) {
-      const parts = trimmed.split(':');
-      if (parts.length === 2 && !parts[1].trim()) {
-        errors.push({
-          message: 'Exercise entry is missing details after colon.',
-          line: index,
-          severity: 'warning'
-        });
-      }
-    }
-    
-    // Check for potential typos in common units
-    if (/\b\d+\s*(kgs|kg\.)\b/i.test(trimmed)) {
-      errors.push({
-        message: 'Did you mean "kg" instead of "' + trimmed.match(/\d+\s*(kgs|kg\.)/i)[1] + '"?',
-        line: index,
-        severity: 'info'
-      });
-    }
-  });
-  
-  return errors;
-}
 
 function updateDiagnostics(sourceCode) {
-  const diagnostics = mockLint(sourceCode);
+  const diagnostics = lint(sourceCode);
   const diagnosticsList = document.getElementById('diagnostics-list');
   
   if (diagnostics.length === 0) {
@@ -208,45 +219,71 @@ function updateDiagnostics(sourceCode) {
 // Example data
 const examples = {
   basic: `2024-01-15 * Basic Workout
-    Squats: 100kg 5x3
-    Bench Press: 80kg 5x3
-    Deadlift: 120kg 1x5`,
+  Squats: 100kg 5x3
+  Bench Press: 80kg 5x3
+  Deadlift: 120kg 1x5`,
     
   complete: `; Complete LiftLedger Example
 
 @exercises
-    [Squat]
-    id: SQ001
-    description: Barbell squat targeting quads and glutes
+  [Squat]
+  id: SQ001
+  description: Barbell squat targeting quads and glutes
 @end-exercises
 
 @template Upper Body
-    Bench Press: 80kg 5x3 @RPE8
-    Pull-ups: bodyweight 8x3
+  Bench Press: 80kg 5x3 @RPE8
+  Pull-ups: bodyweight 8x3
 @end-template
 
 2024-01-15 * Upper Body Workout
-    Bench Press: 80kg 5/5/4 @RPE8 "Felt strong today"
-    Pull-ups: bodyweight 8/6/5 "Last set was tough"
-    Overhead Press: 50kg 5x3
+  Bench Press: 80kg 5/5/4 @RPE8 "Felt strong today"
+  Pull-ups: bodyweight 8/6/5 "Last set was tough"
+  Overhead Press: 50kg 5x3
 
 2024-01-16 # Measurements
-    Weight: 75kg
-    Body Fat: 15%
+  Weight: 75kg
+  Body Fat: 15%
 
 2024-01-17 ^ PR
-    Bench Press: 1RM 95kg`,
+  Bench Press: 1RM 95kg`,
     
   error: `; This will show an error because it's missing a date
-    Squats: 100kg 5x3
-    Bench Press: 80kg 5x3`,
+  Squats: 100kg 5x3
+  Bench Press: 80kg 5x3`,
+    
+  unformatted: `; Unformatted code - try the Format button!
+
+
+@exercises
+[Squat]
+id: SQ001
+description: Barbell squat targeting quads and glutes
+@end-exercises
+
+
+@template Upper Body
+Bench Press: 80kg 5x3 @RPE8
+Pull-ups: bodyweight 8x3
+@end-template
+
+
+2024-01-15 * Upper Body Workout
+Bench Press: 80kg 5/5/4 @RPE8 "Felt strong today"
+Pull-ups: bodyweight 8/6/5 "Last set was tough"
+Overhead Press: 50kg 5x3
+
+
+2024-01-16 # Measurements
+Weight: 75kg
+Body Fat: 15%`,
     
   measurements: `2024-01-20 # Body Measurements
-    Weight: 75.5kg
-    Body Fat: 14.8%
-    Chest: 102cm
-    Waist: 81cm
-    Arms: 35cm`
+  Weight: 75.5kg
+  Body Fat: 14.8%
+  Chest: 102cm
+  Waist: 81cm
+  Arms: 35cm`
 };
 
 // Make loadExample globally available
@@ -263,5 +300,34 @@ window.loadExample = function(exampleKey) {
   }
 };
 
+// Format function
+function formatCode() {
+  if (!editorView) return;
+  
+  const currentText = editorView.state.doc.toString();
+  const formattedText = formatLiftLedger(currentText);
+  
+  // Update the editor with formatted text
+  editorView.dispatch({
+    changes: {
+      from: 0,
+      to: editorView.state.doc.length,
+      insert: formattedText
+    }
+  });
+}
+
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', initEditor);
+document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize tree-sitter first
+  await initTreeSitter();
+  
+  // Then initialize the editor
+  initEditor();
+  
+  // Add format button event listener
+  const formatBtn = document.getElementById('format-btn');
+  if (formatBtn) {
+    formatBtn.addEventListener('click', formatCode);
+  }
+});

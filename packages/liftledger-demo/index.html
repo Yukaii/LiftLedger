@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiftLedger Demo - Live Linter with CodeMirror</title>
+    <title>LiftLedger Demo - Live Linter and Formatter with CodeMirror</title>
     <style>
         * {
             margin: 0;
@@ -56,6 +56,29 @@
             color: white;
             padding: 0.75rem 1rem;
             font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .format-button {
+            background: #38a169;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .format-button:hover {
+            background: #2f855a;
+        }
+
+        .format-button:disabled {
+            background: #718096;
+            cursor: not-allowed;
         }
 
         .editor-content {
@@ -151,12 +174,15 @@
 <body>
     <div class="header">
         <h1>LiftLedger Demo</h1>
-        <p>Live linting with CodeMirror - Type LiftLedger format and see diagnostics in real-time</p>
+        <p>Live linting and formatting with CodeMirror - Type LiftLedger format, see diagnostics in real-time, and format your code</p>
     </div>
 
     <div class="main">
         <div class="editor-container">
-            <div class="editor-header">Editor</div>
+            <div class="editor-header">
+                Editor
+                <button id="format-btn" class="format-button">Format Code</button>
+            </div>
             <div class="editor-content" id="editor"></div>
         </div>
 
@@ -170,6 +196,7 @@
                     <button class="example-button" onclick="loadExample('basic')">Basic Workout</button>
                     <button class="example-button" onclick="loadExample('complete')">Complete Example</button>
                     <button class="example-button" onclick="loadExample('error')">Missing Date (Error)</button>
+                    <button class="example-button" onclick="loadExample('unformatted')">Unformatted (Try Format!)</button>
                     <button class="example-button" onclick="loadExample('measurements')">Measurements</button>
                 </div>
             </div>

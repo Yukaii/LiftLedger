@@ -5,95 +5,7 @@ import { linter, lintGutter } from '@codemirror/lint';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { StreamLanguage } from '@codemirror/language';
 import { initTreeSitter, lint, createCodeMirrorLinter } from 'liftledger-linter/browser.js';
-
-// Browser-compatible formatter
-function formatLiftLedger(input, indentSize = 2) {
-  // Simple formatter that works without tree-sitter in the browser
-  const lines = input.split('\n');
-  const formatted = [];
-  let currentIndent = 0;
-  let inExerciseBlock = false;
-  let inTemplateBlock = false;
-  
-  // Remove empty lines at start and end
-  while (lines.length > 0 && !lines[0].trim()) {
-    lines.shift();
-  }
-  while (lines.length > 0 && !lines[lines.length - 1].trim()) {
-    lines.pop();
-  }
-  
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    
-    if (!line) {
-      // Empty lines
-      formatted.push('');
-      continue;
-    }
-    
-    if (line.startsWith(';')) {
-      // Comments - preserve but don't indent
-      formatted.push(line);
-      continue;
-    }
-    
-    if (line.startsWith('@exercises')) {
-      // Exercises block start
-      formatted.push(line);
-      currentIndent = indentSize;
-      inExerciseBlock = true;
-      continue;
-    }
-    
-    if (line.startsWith('@template')) {
-      // Template block start
-      formatted.push(line);
-      currentIndent = indentSize;
-      inTemplateBlock = true;
-      continue;
-    }
-    
-    if (line.startsWith('@end-')) {
-      // Block end
-      currentIndent = 0;
-      formatted.push(line);
-      inExerciseBlock = false;
-      inTemplateBlock = false;
-      
-      // Add empty line after block
-      if (i < lines.length - 1 && lines[i + 1].trim()) {
-        formatted.push('');
-      }
-      continue;
-    }
-    
-    if (line.startsWith('[') && line.endsWith(']') && inExerciseBlock) {
-      // Exercise definition in exercises block
-      formatted.push(' '.repeat(currentIndent) + line);
-      currentIndent = indentSize * 2;
-      continue;
-    }
-    
-    if (/^\d{4}-\d{2}-\d{2}/.test(line)) {
-      // Date entries
-      currentIndent = indentSize;
-      formatted.push(line);
-      continue;
-    }
-    
-    if (line.includes(':')) {
-      // Regular entries with colons
-      formatted.push(' '.repeat(currentIndent) + line);
-      continue;
-    }
-    
-    // Default case
-    formatted.push(' '.repeat(currentIndent) + line);
-  }
-  
-  return formatted.join('\n');
-}
+import { formatLiftLedger, initTreeSitter as initFormatterTreeSitter } from 'liftledger-fmt/browser.js';
 
 const liftLedgerLanguage = StreamLanguage.define({
   name: 'liftledger',
@@ -319,8 +231,9 @@ function formatCode() {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
-  // Initialize tree-sitter first
+  // Initialize tree-sitter for both linter and formatter
   await initTreeSitter();
+  await initFormatterTreeSitter();
   
   // Then initialize the editor
   initEditor();

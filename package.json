@@ -6,7 +6,10 @@
   "scripts": {
     "watch": "pnpm run --filter=tree-sitter* \"/^watch:.*/\"",
     "build": "pnpm run --filter=* build",
-    "test": "jest"
+    "test": "jest",
+    "demo:dev": "pnpm run --filter=liftledger-demo dev",
+    "demo:build": "pnpm run --filter=liftledger-demo build",
+    "demo:preview": "pnpm run --filter=liftledger-demo preview"
   },
   "keywords": [],
   "author": "",

@@ -20,6 +20,24 @@ A web-based demo application showcasing the LiftLedger linter with CodeMirror in
 ### Installation
 
 ```bash
+# From the root of the LiftLedger project
+pnpm install
+
+# Start development server
+pnpm demo:dev
+
+# Build for production
+pnpm demo:build
+
+# Preview production build
+pnpm demo:preview
+```
+
+Or directly in the demo package:
+
+```bash
+cd packages/liftledger-demo
+
 # Install dependencies
 pnpm install
 
@@ -32,6 +50,13 @@ pnpm build
 # Preview production build
 pnpm preview
 ```
+
+### Live Demo
+
+The demo is automatically deployed to GitHub Pages and available at:
+**[https://liftledger.yukai.dev/demo/](https://liftledger.yukai.dev/demo/)**
+
+The deployment happens automatically when changes are pushed to the main branch.
 
 ## Usage
 

@@ -71,6 +71,19 @@ It's inspired by [beancount](https://github.com/beancount/beancount). Co-designe
 
 The format is designed to be extended by third-party tools. Special comments (e.g., '; @tool-specific-instruction') can be used for custom features but are ignored by the core parser.
 
+## Demo
+
+🚀 **Try LiftLedger in your browser!**
+
+Experience LiftLedger with our interactive demo that features:
+- Live code editor with syntax highlighting
+- Real-time linting and error detection
+- Example templates and scenarios
+
+**[View Demo →](https://liftledger.yukai.dev/demo/)**
+
+The demo showcases the LiftLedger format with CodeMirror integration and provides instant feedback on your LiftLedger entries.
+
 ## Getting Started
 
 1. Create a new text file with a `.lfl` extension
@@ -79,3 +92,29 @@ The format is designed to be extended by third-party tools. Special comments (e.
 4. Use comments to add any additional information
 
 For more detailed information and examples, please refer to the full documentation.
+
+## Development
+
+This project includes several packages:
+
+- **`tree-sitter-liftledger`**: Grammar definition and parser
+- **`liftledger-linter`**: Linting rules and validation
+- **`liftledger-client`**: JavaScript client library
+- **`liftledger-fmt`**: Code formatter
+- **`liftledger-demo`**: Interactive web demo
+
+### Quick Commands
+
+```bash
+# Run tests
+pnpm test
+
+# Start demo in development mode
+pnpm demo:dev
+
+# Build demo for production
+pnpm demo:build
+
+# Build all packages
+pnpm build
+```

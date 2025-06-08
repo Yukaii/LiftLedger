@@ -155,9 +155,9 @@ function initEditor() {
 ; Try typing a workout entry below
 
 2024-01-15 * Upper Body Workout
-    Bench Press: 80kg 5x3 @RPE8
-    Pull-ups: bodyweight 8/6/5
-    Overhead Press: 50kg 5x3`;
+  Bench Press: 80kg 5x3 @RPE8
+  Pull-ups: bodyweight 8/6/5
+  Overhead Press: 50kg 5x3`;
 
   const state = EditorState.create({
     doc: startDoc,
@@ -219,38 +219,38 @@ function updateDiagnostics(sourceCode) {
 // Example data
 const examples = {
   basic: `2024-01-15 * Basic Workout
-    Squats: 100kg 5x3
-    Bench Press: 80kg 5x3
-    Deadlift: 120kg 1x5`,
+  Squats: 100kg 5x3
+  Bench Press: 80kg 5x3
+  Deadlift: 120kg 1x5`,
     
   complete: `; Complete LiftLedger Example
 
 @exercises
-    [Squat]
-    id: SQ001
-    description: Barbell squat targeting quads and glutes
+  [Squat]
+  id: SQ001
+  description: Barbell squat targeting quads and glutes
 @end-exercises
 
 @template Upper Body
-    Bench Press: 80kg 5x3 @RPE8
-    Pull-ups: bodyweight 8x3
+  Bench Press: 80kg 5x3 @RPE8
+  Pull-ups: bodyweight 8x3
 @end-template
 
 2024-01-15 * Upper Body Workout
-    Bench Press: 80kg 5/5/4 @RPE8 "Felt strong today"
-    Pull-ups: bodyweight 8/6/5 "Last set was tough"
-    Overhead Press: 50kg 5x3
+  Bench Press: 80kg 5/5/4 @RPE8 "Felt strong today"
+  Pull-ups: bodyweight 8/6/5 "Last set was tough"
+  Overhead Press: 50kg 5x3
 
 2024-01-16 # Measurements
-    Weight: 75kg
-    Body Fat: 15%
+  Weight: 75kg
+  Body Fat: 15%
 
 2024-01-17 ^ PR
-    Bench Press: 1RM 95kg`,
+  Bench Press: 1RM 95kg`,
     
   error: `; This will show an error because it's missing a date
-    Squats: 100kg 5x3
-    Bench Press: 80kg 5x3`,
+  Squats: 100kg 5x3
+  Bench Press: 80kg 5x3`,
     
   unformatted: `; Unformatted code - try the Format button!
 
@@ -279,11 +279,11 @@ Weight: 75kg
 Body Fat: 15%`,
     
   measurements: `2024-01-20 # Body Measurements
-    Weight: 75.5kg
-    Body Fat: 14.8%
-    Chest: 102cm
-    Waist: 81cm
-    Arms: 35cm`
+  Weight: 75.5kg
+  Body Fat: 14.8%
+  Chest: 102cm
+  Waist: 81cm
+  Arms: 35cm`
 };
 
 // Make loadExample globally available

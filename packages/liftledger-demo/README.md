@@ -54,7 +54,7 @@ pnpm preview
 ### Live Demo
 
 The demo is automatically deployed to GitHub Pages and available at:
-**[https://liftledger.yukai.dev/demo/](https://liftledger.yukai.dev/demo/)**
+**[https://liftledger.yukai.dev/](https://liftledger.yukai.dev/)**
 
 The deployment happens automatically when changes are pushed to the main branch.
 

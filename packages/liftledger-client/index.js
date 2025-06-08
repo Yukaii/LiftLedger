@@ -24,8 +24,21 @@ class LiftLedgerClient {
    * @returns {Parser.Tree}
    */
   parseText(text) {
-    const parser = createParser();
-    return parser.parse(text);
+    let tree;
+    let parser = createParser();
+    
+    tree = parser.parse(text);
+    
+    // If first attempt fails, try once more with a fresh parser
+    if (!tree || !tree.rootNode) {
+      parser = createParser();
+      tree = parser.parse(text);
+      if (!tree || !tree.rootNode) {
+        return tree; // Return whatever we got, even if broken
+      }
+    }
+    
+    return tree;
   }
 
   /**

@@ -9,4 +9,9 @@ module.exports = {
     '^tree-sitter-liftledger$': '<rootDir>/packages/tree-sitter-liftledger/bindings/node/index.js',
     '^tree-sitter$': '<rootDir>/node_modules/tree-sitter/index.js',
   },
+  // Run tests sequentially to avoid tree-sitter parser conflicts
+  maxWorkers: 1,
+  // Reset modules between tests to prevent tree-sitter state conflicts
+  resetModules: true,
+  clearMocks: true,
 };

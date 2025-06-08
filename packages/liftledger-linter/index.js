@@ -9,13 +9,21 @@ function createParser() {
 }
 
 function lint(sourceCode) {
-  const parser = createParser();
-  const tree = parser.parse(sourceCode);
-  const errors = [];
-
+  let tree;
+  let parser = createParser();
+  
+  tree = parser.parse(sourceCode);
+  
+  // If first attempt fails, try once more with a fresh parser
   if (!tree || !tree.rootNode) {
-    return [];
+    parser = createParser();
+    tree = parser.parse(sourceCode);
+    if (!tree || !tree.rootNode) {
+      return [];
+    }
   }
+
+  const errors = [];
 
 
 

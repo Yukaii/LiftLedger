@@ -80,7 +80,7 @@ Experience LiftLedger with our interactive demo that features:
 - Real-time linting and error detection
 - Example templates and scenarios
 
-**[View Demo →](https://liftledger.yukai.dev/demo/)**
+**[View Demo →](https://liftledger.yukai.dev/)**
 
 The demo showcases the LiftLedger format with CodeMirror integration and provides instant feedback on your LiftLedger entries.
 

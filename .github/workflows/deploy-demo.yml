@@ -22,6 +22,8 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  pull-requests: write
+  issues: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -106,5 +108,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🚀 Demo build completed successfully! The demo will be available at the `/demo/` path once deployed to the main branch.'
+              body: '🚀 Demo build completed successfully! The demo will be available at https://liftledger.yukai.dev/ once deployed to the main branch.'
             })

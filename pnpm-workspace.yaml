@@ -3,3 +3,8 @@ packages:
 
 ignoredBuiltDependencies:
   - tree-sitter-liftledger
+
+onlyBuiltDependencies:
+  - esbuild
+  - tree-sitter
+  - tree-sitter-cli

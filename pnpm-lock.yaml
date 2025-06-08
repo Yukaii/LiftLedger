@@ -53,6 +53,9 @@ importers:
       tree-sitter-liftledger:
         specifier: workspace:*
         version: link:../tree-sitter-liftledger
+      web-tree-sitter:
+        specifier: ^0.22.6
+        version: 0.22.6
     devDependencies:
       vite:
         specifier: ^5.0.12
@@ -75,6 +78,9 @@ importers:
       tree-sitter-liftledger:
         specifier: file:../tree-sitter-liftledger
         version: file:packages/tree-sitter-liftledger(tree-sitter@0.21.1)
+      web-tree-sitter:
+        specifier: ^0.22.6
+        version: 0.22.6
     devDependencies:
       jest:
         specifier: ^29.0.0
@@ -1706,6 +1712,9 @@ packages:
 
   walker@1.0.8:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
+
+  web-tree-sitter@0.22.6:
+    resolution: {integrity: sha512-hS87TH71Zd6mGAmYCvlgxeGDjqd9GTeqXNqTT+u0Gs51uIozNIaaq/kUAbV/Zf56jb2ZOyG8BxZs2GG9wbLi6Q==}
 
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
@@ -3573,6 +3582,8 @@ snapshots:
   walker@1.0.8:
     dependencies:
       makeerror: 1.0.12
+
+  web-tree-sitter@0.22.6: {}
 
   which@2.0.2:
     dependencies:

@@ -4,10 +4,7 @@ import { basicSetup } from 'codemirror';
 import { linter, lintGutter } from '@codemirror/lint';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { StreamLanguage } from '@codemirror/language';
-
-// Import the linter - we'll need to handle this carefully since it's a Node.js module
-// For now, we'll create a wrapper that works in the browser
-let liftLedgerLinter;
+import { initTreeSitter, lint, createCodeMirrorLinter } from 'liftledger-linter/browser.js';
 
 // Browser-compatible formatter
 function formatLiftLedger(input, indentSize = 2) {
@@ -149,17 +146,6 @@ const liftLedgerLanguage = StreamLanguage.define({
   }
 });
 
-// Create a linter function that works with our Node.js linter
-const createLiftLedgerLinter = () => {
-  return linter(view => {
-    const doc = view.state.doc;
-    const text = doc.toString();
-    
-    // For now, return empty diagnostics since we need to set up the linter properly
-    // We'll implement this after setting up the build process
-    return [];
-  });
-};
 
 // Initialize the editor
 let editorView;
@@ -178,7 +164,7 @@ function initEditor() {
     extensions: [
       basicSetup,
       liftLedgerLanguage,
-      createLiftLedgerLinter(),
+      linter(createCodeMirrorLinter()),
       lintGutter(),
       oneDark,
       EditorView.updateListener.of(update => {
@@ -198,73 +184,9 @@ function initEditor() {
   updateDiagnostics(startDoc);
 }
 
-// Mock linter for browser demo (since we can't easily run Node.js tree-sitter in browser)
-function mockLint(sourceCode) {
-  const errors = [];
-  const lines = sourceCode.split('\n');
-  
-  // Check for date pattern
-  const hasDate = lines.some(line => /^\d{4}-\d{2}-\d{2}/.test(line.trim()));
-  
-  // Check if there's workout content that needs a date
-  const hasWorkoutContent = lines.some(line => {
-    const trimmed = line.trim();
-    return trimmed && 
-           !trimmed.startsWith(';') && 
-           !trimmed.startsWith('@') && 
-           !hasDate &&
-           (trimmed.includes(':') || trimmed.includes('kg') || trimmed.includes('lbs'));
-  });
-  
-  if (!hasDate && hasWorkoutContent) {
-    // Find first non-comment, non-empty line for error position
-    let errorLine = 0;
-    for (let i = 0; i < lines.length; i++) {
-      const trimmed = lines[i].trim();
-      if (trimmed && !trimmed.startsWith(';') && !trimmed.startsWith('@')) {
-        errorLine = i;
-        break;
-      }
-    }
-    
-    errors.push({
-      message: 'LiftLedger entry should have a date.',
-      line: errorLine,
-      severity: 'error'
-    });
-  }
-  
-  // Check for other common issues
-  lines.forEach((line, index) => {
-    const trimmed = line.trim();
-    
-    // Check for malformed exercise entries
-    if (trimmed.includes(':') && !trimmed.startsWith(';') && !trimmed.startsWith('@')) {
-      const parts = trimmed.split(':');
-      if (parts.length === 2 && !parts[1].trim()) {
-        errors.push({
-          message: 'Exercise entry is missing details after colon.',
-          line: index,
-          severity: 'warning'
-        });
-      }
-    }
-    
-    // Check for potential typos in common units
-    if (/\b\d+\s*(kgs|kg\.)\b/i.test(trimmed)) {
-      errors.push({
-        message: 'Did you mean "kg" instead of "' + trimmed.match(/\d+\s*(kgs|kg\.)/i)[1] + '"?',
-        line: index,
-        severity: 'info'
-      });
-    }
-  });
-  
-  return errors;
-}
 
 function updateDiagnostics(sourceCode) {
-  const diagnostics = mockLint(sourceCode);
+  const diagnostics = lint(sourceCode);
   const diagnosticsList = document.getElementById('diagnostics-list');
   
   if (diagnostics.length === 0) {
@@ -396,7 +318,11 @@ function formatCode() {
 }
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize tree-sitter first
+  await initTreeSitter();
+  
+  // Then initialize the editor
   initEditor();
   
   // Add format button event listener

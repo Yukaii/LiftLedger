@@ -4,15 +4,20 @@
   "description": "Demo app showcasing LiftLedger linter with CodeMirror",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "prebuild": "npm run copy-wasm",
     "build": "vite build",
+    "predev": "npm run copy-wasm",
+    "dev": "vite",
     "preview": "vite preview",
-    "serve": "vite preview --port 3000"
+    "serve": "vite preview --port 3000",
+    "copy-wasm": "npm run build-wasm && cp ../tree-sitter-liftledger/tree-sitter-liftledger.wasm public/",
+    "build-wasm": "cd ../tree-sitter-liftledger && npm run build-wasm"
   },
   "dependencies": {
-    "liftledger-linter": "workspace:*",
     "liftledger-fmt": "workspace:*",
+    "liftledger-linter": "workspace:*",
     "tree-sitter-liftledger": "workspace:*",
+    "web-tree-sitter": "^0.22.6",
     "@codemirror/state": "^6.4.1",
     "@codemirror/view": "^6.23.1",
     "@codemirror/language": "^6.10.1",

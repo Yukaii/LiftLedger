@@ -3,12 +3,19 @@
   "version": "0.1.0",
   "description": "Linter for the LiftLedger format",
   "main": "index.js",
+  "module": "browser.js",
+  "browser": "browser.js",
   "bin": {
     "liftledger-linter": "./cli.js"
   },
   "scripts": {
     "test": "jest"
   },
+  "files": [
+    "index.js",
+    "browser.js",
+    "cli.js"
+  ],
   "keywords": [
     "liftledger",
     "linter",
@@ -18,7 +25,8 @@
   "license": "ISC",
   "dependencies": {
     "tree-sitter": "^0.21.0",
-    "tree-sitter-liftledger": "file:../tree-sitter-liftledger"
+    "tree-sitter-liftledger": "file:../tree-sitter-liftledger",
+    "web-tree-sitter": "^0.22.6"
   },
   "devDependencies": {
     "jest": "^29.0.0"
